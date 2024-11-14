@@ -1,0 +1,500 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Sullivan Business Report
+% LaTeX Template
+% Version 1.0 (May 5, 2022)
+%
+% This template originates from:
+% https://www.LaTeXTemplates.com
+%
+% Author:
+% Vel (vel@latextemplates.com)
+%
+% License:
+% CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	CLASS, PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[
+    a4paper, % Paper size, use either a4paper or letterpaper
+    12pt, % Default font size, the template is designed to look good at 12pt so it's best not to change this
+    %unnumberedsections, % Uncomment for no section numbering
+]{CSSullivanBusinessReport}
+
+\usepackage[spanish,es-noquoting,es-noshorthands,es-tabla,es-nodecimaldot]{babel}
+% \setlocalecaption{english}{contents}{Table of Contents}
+% \setlocalecaption{spanish}{listings}{Código fuente}
+% \setlocalecaption{spanish}{listoflistings}{Lista de código fuente}
+% \renewcommand{\lstlistingname}{Listado}
+
+\usepackage{ccicons}
+\usepackage{minted}
+\usemintedstyle{manni}
+
+\usepackage{fontspec}
+
+\setmonofont{inconsolata}
+
+\addbibresource{referencias.bib} % BibLaTeX bibliography file
+
+\renewcommand{\listingscaption}{Código fuente}
+\renewcommand{\listoflistingscaption}{Listado de códigos fuente}
+
+
+\usepackage{fontawesome}
+\usepackage[most]{tcolorbox}
+
+\usepackage{cleveref}
+\crefname{listing}{código fuente}{códigos fuente}
+
+\crefname{table}{tabla}{tablas}
+
+%----------------------------------------------------------------------------------------
+%	REPORT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\reporttitle{Recetario y planificador de comidas} % The report title to appear on the title page and page headers, do not create manual new lines here as this will carry over to page headers
+
+\reportsubtitle{Proyecto de la asignatura Taller de Programación\\ Convocatoria ordinaria, curso 2024-2025} % Report subtitle, include new lines if needed
+
+\reportauthors{E. T. S. de Ingeniería de Sistemas Informáticos\\\smallskip Universidad Politécnica de Madrid} % Report authors/group/department, include new lines if needed
+
+\reportdate{\today} % Report date, include new lines for additional information if needed
+
+%\rightheadercontent{\includegraphics[width=4cm]{logo.pdf}} % The content in the right header, you may want to add your own company logo or use your company/department name or leave this command empty for no right header content
+\rightheadercontent{}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\thispagestyle{empty} % Suppress headers and footers on this page
+
+\begin{fullwidth} % Use the whole page width
+    \vspace*{-0.075\textheight} % Pull logo into the top margin
+    
+    \hfill\includegraphics[width=10cm]{logo.pdf} % Company logo
+
+    \vspace{0.15\textheight} % Vertical whitespace
+
+    \parbox{0.9\fulltextwidth}{\fontsize{50pt}{52pt}\selectfont\raggedright\textbf{\reporttitle}\par} % Report title, intentionally at less than full width for nice wrapping. Adjust the width of the \parbox and the font size as needed for your title to look good.
+    
+    \vspace{0.03\textheight} % Vertical whitespace
+    
+    {\LARGE\textit{\textbf{\reportsubtitle}}\par} % Subtitle
+    
+    \vfill % Vertical whitespace
+    
+    {\Large\reportauthors\par} % Report authors, group or department
+    
+    \vfill\vfill\vfill % Vertical whitespace
+    
+    {\large\reportdate\par} % Report date
+\end{fullwidth}
+
+\newpage
+
+%----------------------------------------------------------------------------------------
+%	DISCLAIMER/COPYRIGHT PAGE
+%----------------------------------------------------------------------------------------
+
+\thispagestyle{empty} % Suppress headers and footers on this page
+
+\begin{twothirdswidth} % Content in this environment to be at two-thirds of the whole page width
+    \footnotesize % Reduce font size
+    
+    \subsection*{Licencias}
+    
+    \textcopyright~[2024] [Raúl Lara Cabrera] 
+    
+    Este material se distribuye bajo una licencia \ccbyncsaeu~Atribución/Reconocimiento-NoComercial-CompartirIgual 4.0 Internacional de Creative Commons. Para ver una copia de esta licencia, visite \url{https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es}. 
+    
+    Usted es libre de:
+    \begin{itemize}
+        \item Compartir — copiar y redistribuir el material en cualquier medio o formato
+        \item Adaptar — remezclar, transformar y construir a partir del material
+    \end{itemize}
+    Bajo los siguientes términos:
+    \begin{itemize}
+        \item \ccAttribution~Atribución — Usted debe dar crédito de manera adecuada, brindar un enlace a la licencia e indicar si se han realizado cambios. Puede hacerlo de cualquier manera razonable, pero no de una manera que sugiera que tiene el apoyo del licenciante o lo recibe por el uso que hace.
+        \item \ccNonCommercialEU~NoComercial — Usted no puede utilizar el material con fines comerciales.
+        \item \ccShareAlike~CompartirIgual — Si remezcla, transforma o crea a partir del material, debe distribuir su contribución bajo la misma licencia que el original.
+        \item No hay restricciones adicionales — No puede aplicar términos legales ni medidas tecnológicas que restrinjan legalmente a otras a hacer cualquier uso permitido por la licencia.
+    \end{itemize}
+
+    \subsection*{Atribución}
+
+    El enunciado de esta práctica está basado en la plantilla ``Sullivan Business Report'' de Vel, publicada en \url{https://www.LaTeXTemplates.com}, que se distribuye bajo una licencia \ccbyncsaeu~Atribución/Reconocimiento-NoComercial-CompartirIgual 4.0 Internacional de Creative Commons.
+    
+    \subsection*{Contacto}
+    
+    Para cualquier duda o comentario sobre esta práctica, por favor, contacta con los profesores de la asignatura.
+    
+    \vfill % Push the following down to the bottom of the page
+    
+    \subsubsection*{Control de versiones}
+    
+    \scriptsize % Reduce font size further
+    
+    \begin{tabular}{@{} L{0.05\linewidth} L{0.15\linewidth} L{0.6\linewidth} @{}} % Column widths specified here, change as needed for your content
+        \toprule
+        v1.0 & 14-11-2024 & Versión final del enunciado de la práctica.\\
+        \bottomrule
+    \end{tabular}
+\end{twothirdswidth}
+
+\newpage
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+\begin{twothirdswidth} % Content in this environment to be at two-thirds of the whole page width
+    \tableofcontents % Output the table of contents, automatically generated from the section commands used in the document
+\end{twothirdswidth}
+
+\newpage
+
+%----------------------------------------------------------------------------------------
+%	SECTIONS
+%----------------------------------------------------------------------------------------
+
+\section{Introducción} % Top level section
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam auctor mi risus, quis tempor libero hendrerit at. Duis hendrerit placerat quam et semper. Nam ultricies metus vehicula arcu viverra, vel ullamcorper justo elementum. Pellentesque vel mi ac lectus cursus posuere et nec ex. Fusce quis mauris egestas lacus commodo venenatis. Ut at arcu lectus. Donec et urna nunc. Morbi eu nisl cursus sapien eleifend tincidunt quis quis est. Donec ut orci ex. Praesent ligula enim, ullamcorper non lorem a, ultrices volutpat dolor. Nullam at imperdiet urna. Pellentesque nec velit eget est pretium.\sidenote{This is a sidenote. This template features a large margin specifically so you can put notes, figures, tables and other things into it as additional material to the main content in the text block.}
+
+Donec in elit ac ante vestibulum rhoncus. Pellentesque ligula tortor, aliquet malesuada nulla tristique vitae. Aliquam mi sem, varius eu pellentesque et, tristique nec quam. Vestibulum pellentesque in dui et venenatis. Sed malesuada elit pellentesque sapien aliquet porta. In at facilisis diam. Duis id ante tellus.\sidenote[][2cm]{This sidenote has been pushed down the page manually with an optional parameter, otherwise it would be right under the one above.} % This first optional argument to a sidenote is the symbol to use (leave this empty for automatic numbering) and the second is the vertical offset (positive is down, negative is up)
+
+\subsection{Preparación del entorno de desarrollo} % Second level section
+
+In diam libero, vulputate quis accumsan non, auctor in ipsum. Praesent cursus velit eget lacus sodales porta. Proin quis risus ut velit euismod scelerisque ut sed neque. Cras sagittis, dolor ac ullamcorper auctor, tortor dui facilisis diam, at sagittis nisi ipsum a neque. Nullam vel mattis nisi. Ut interdum ut diam at ornare. Nulla ultrices elit justo, vitae tristique massa vulputate sit amet.
+
+\section{Descripción y requisitos del proyecto}
+El objetivo de este proyecto es desarrollar un sistema en Java que permita gestionar un libro de recetas y planificar comidas semanales. Los estudiantes deberán implementar varias clases y métodos para cumplir con los requisitos especificados.
+
+\subsection{Descripción del proyecto}
+La herramienta a desarrollar es lo que se conoce como una aplicación de línea de comandos (CLI, por sus siglas en inglés). La interfaz de usuario será textual, sin gráficos ni interacción con el ratón. El programa se ejecutará en la terminal de un sistema operativo, lo que se conoce como Terminal User Interface (TUI)\sidenote{Aunque pueda parecer algo del pasado, las TUI están a la orden del día. Echa un vistazo al siguiente \href{https://terminaltrove.com}{\color{blue}enlace}}.
+
+Para la realización del proyecto se proporciona un esquema de clases y métodos que los estudiantes deberán completar. Se usarán los conceptos de programación ya trabajados en la asignatura de Fundamentos de Programación.
+
+\subsection{Componentes a desarrollar}
+La arquitectura del sistema se divide en cinco componentes, como se puede observar en la siguiente tabla:
+
+\begin{table*} % Use the table* environment for full width tables
+    \caption{Componentes a desarrollar.}
+    \begin{tabular}{C{0.03\linewidth} L{0.3\linewidth} L{0.55\linewidth}}
+        \toprule
+        \textit{\#} & \textbf{Componente} & \textbf{Descripción} \\
+        \midrule
+        \textit{1} & \texttt{InterfazUsuario} & Gestiona la interacción con el usuario a través de un menú en consola.\\
+        \textit{2} & \texttt{LibroDeRecetas} & Almacena un conjunto de recetas. Permite agregar, buscar y eliminar recetas. Permite guardar y cargar recetas desde archivos.\\
+        \textit{3} & \texttt{Receta} & Representa una receta con un nombre, ingredientes e instrucciones. Permite agregar ingredientes e instrucciones. Proporciona métodos para obtener información sobre la receta.\\
+        \textit{4} & \texttt{PlanificadorSemanal} & Permite planificar recetas para cada día de la semana así como guardar el plan semanal en un archivo.\\
+        \textit{5} & \texttt{Utilidades} & Proporciona métodos de utilidad para la entrada de datos por teclado.\\
+        \bottomrule
+    \end{tabular}
+\end{table*}
+
+A continuación se detallan los requisitos de cada componente.
+
+\subsubsection{La interfaz de usuario}\label{sec:interfaz-usuario}
+La interfaz de usuario es el componente que se encarga de gestionar la interacción con el usuario. Debe mostrar un menú con las opciones disponibles y permitir al usuario seleccionar una de ellas. Las opciones disponibles son las siguientes:
+
+\begin{enumerate}
+    \item Agregar Receta
+    \item Consultar/Editar Receta
+    \item Planificar Comidas
+    \item Guardar Recetas
+    \item Cargar Recetas
+    \item Guardar Plan Semanal
+    \item Salir
+\end{enumerate}
+
+El componente se encargará de llamar a los métodos correspondientes de los otros componentes para realizar las acciones solicitadas por el usuario, además de encargarse de la entrada y salida de los datos necesarios para realizar dichas acciones.
+
+Por ejemplo, si el usuario selecciona la opción de agregar receta, la interfaz de usuario se encargará de solicitar la información de la nueva receta al usuario y llamará al método correspondiente del componente que gestiona el libro de recetas.
+
+Una vez realizada la acción solicitada por el usuario, la interfaz de usuario debe volver a mostrar el menú de opciones. El programa debe seguir ejecutándose hasta que el usuario seleccione la opción de salir.
+
+\subsubsection{El libro de recetas}
+
+\subsubsection{La receta}\label{sec:receta}
+
+El componente \texttt{Receta} representa una receta de cocina. Cada receta tiene un nombre, una lista de ingredientes y una lista de instrucciones. El componente debe proporcionar métodos para agregar ingredientes e instrucciones a la receta, así como para obtener información sobre la receta.\nonumsidenote[-2cm]{El componente \texttt{Receta} es fundamental para el funcionamiento del sistema. Asegúrate de implementar correctamente los métodos necesarios.}
+
+El número máximo de ingredientes e instrucciones que puede tener una receta se especifican como párametros de ejecución. Si se intenta agregar más ingredientes o instrucciones, el sistema debe mostrar un mensaje de error\sidenote{Recuerda que los casos de prueba esperan estos mensajes en concreto, por lo que tienes que ser \textbf{preciso} con espacios y signos de puntuación.} y no permitir la adición:
+
+\begin{listing}[H]
+\caption{Mensajes de error al intentar añadir ingredientes e instrucciones, respectivamente, si se supera el máximo.}\label{lst:error-maximo-receta}
+\begin{minted}
+[
+frame=lines,
+framesep=1mm,
+baselinestretch=1.2,
+fontsize=\footnotesize,
+linenos,
+]
+{text}
+No se pueden añadir más ingredientes.
+No se pueden añadir más instrucciones.
+\end{minted}
+\end{listing}
+
+La funcionalidad que nos permite agregar ingrediente se encapsula en el método 
+
+\mintinline[fontsize=\footnotesize]{java}|public boolean agregarIngrediente(String ingrediente)|
+
+que recibe como parámetros el nombre del ingrediente y la cantidad. La funcionalidad de agregar instrucción se encapsula en el método
+
+\mintinline[fontsize=\footnotesize]{java}|public boolean agregarInstruccion(String ingrediente)|
+
+que recibe como parámetro la instrucción. Ambos métodos devuelven un valor booleano\sidenote{\texttt{true} si se ha realizado la operación, \texttt{false} en otro caso} que indica si la operación se ha realizado correctamente.
+
+Una funcionalidad adicional que se pide es la de obtener la información de la receta. Esta funcionalidad se encapsula en el método \mintinline[fontsize=\footnotesize]{java}|public String toString()|, que devuelve una cadena de texto con la información de la receta en el siguiente formato\sidenote{Ten \textbf{muy en cuenta} los espacios y saltos de línea en la salida}:
+
+\begin{listing}[H]
+\caption{Formato de representación textual de una receta}\label{lst:receta-tostring}
+\begin{minted}
+[
+frame=lines,
+framesep=1mm,
+baselinestretch=1.2,
+fontsize=\footnotesize,
+linenos
+]
+{text}
+Receta: nombre de la receta
+Ingredientes:
+- Ingrediente 1
+- Ingrediente n
+Instrucciones:
+1. Instrucción 1
+2. Instrucción m
+\end{minted}
+\end{listing}
+
+\nonumsidenote[-4cm]{Recomendamos utilizar \texttt{StringBuilder} en lugar de la concatenación de cadenas de caracteres, especialmente cuando manipulas grandes cantidades de texto o realizas múltiples operaciones de inserción. La superior eficiencia y rendimiento del \texttt{StringBuilder} hacen que sea el método más óptimo para estas tareas en programación.}
+
+Para guardar y cargar las recetas a partir de un fichero de texto se usa una representación textual \textbf{simplificada} de las recetas. Esta representación se genera en el método
+
+\mintinline[fontsize=\footnotesize]{java}|public String toRawString()|
+
+y devuelve la información de la receta, incluyendo el nombre, los ingredientes y las instrucciones, en el siguiente formato compacto\sidenote{Presta atención a las diferencias con la representación textual completa mostrada en el~\Cref{lst:receta-tostring}. Fíjate también en el separador de recetas al final del texto.}:
+
+\begin{listing}[H]
+\caption{Formato de representación textual simplificada y compacta de una receta}\label{lst:receta-torawstring}
+\begin{minted}
+[
+frame=lines,
+framesep=1mm,
+baselinestretch=1.2,
+fontsize=\footnotesize,
+linenos
+]
+{text}
+Nombre de la receta
+Ingrediente 1
+Ingrediente n
+INSTRUCCIONES
+Instrucción 1
+Instrucción m
+-----
+\end{minted}
+\end{listing}
+
+Además de los métodos anteriores, el componente \texttt{Receta} debe proporcionar los métodos auxiliares que son necesarios para la correcta implementación de los otros componentes y se detallan a continuación:
+
+\mint[fontsize=\scriptsize]{java}|public Receta(String nombre, int maxIngredientes, int maxInstrucciones)|
+
+Constructor de la clase que recibe como parámetros el nombre de la receta, el número máximo de ingredientes y el número máximo de instrucciones que puede contener la receta.
+
+\mint[fontsize=\scriptsize]{java}|public String getNombre()|
+
+Devuelve el nombre de la receta.
+
+\mint[fontsize=\scriptsize]{java}|public int getMaxIngredientes()|
+
+Devuelve el número máximo de ingredientes que puede contener la receta.
+
+\mint[fontsize=\scriptsize]{java}|public int getMaxInstrucciones()|
+
+Devuelve el número máximo de instrucciones que puede contener la receta.
+
+\mint[fontsize=\scriptsize]{java}|public List<String> getIngredientes()|
+
+Devuelve la lista de ingredientes de la receta.
+
+\mint[fontsize=\scriptsize]{java}|public List<String> getInstrucciones()|
+
+Devuelve la lista de instrucciones de la receta.
+
+\mint[fontsize=\scriptsize]{java}|public boolean ingredientesCompletos()|
+\mint[fontsize=\scriptsize]{java}|public boolean instruccionesCompletas()|
+
+Devuelve \texttt{true} si la receta tiene el número máximo de ingredientes e instrucciones, respectivamente, \texttt{false} en otro caso.
+
+\mint[fontsize=\scriptsize]{java}|public int numIngredientes()|
+\mint[fontsize=\scriptsize]{java}|public int numInstrucciones()|
+
+Devuelve el número de ingredientes e instrucciones de la receta, respectivamente.
+
+
+
+\subsubsection{El libro de recetas}\label{sec:libro-recetas}
+
+El componente \texttt{LibroDeRecetas} es el encargado de almacenar un conjunto de recetas. Debe proporcionar métodos para agregar, buscar y eliminar recetas, así como para guardar y cargar recetas desde archivos. A continuación, nos centramos en cada una de las funcionalidades que debe implementar este componente.
+
+\paragraph{Agregar receta}
+
+La funcionalidad que nos permite agregar una receta se encapsula en el método
+
+\mintinline[fontsize=\footnotesize]{java}|public boolean agregarReceta(Receta receta)|
+
+que recibe como parámetro\sidenote{Será tu responsabilidad comprobar si la receta no es nula.} la receta a añadir. El método devuelve un valor booleano que indica si la operación se ha realizado correctamente. Si se intenta añadir una receta a un libro que ya está completo, el sistema debe mostrar un mensaje de error\sidenote{Recuerda que los casos de prueba esperan estos mensajes en concreto, por lo que tienes que ser \textbf{preciso} con espacios y signos de puntuación.} y no permitir la adición:
+
+\begin{listing}[H]
+\caption{Mensaje de error al intentar añadir una receta si el libro está completo.}\label{lst:error-maximo-libro}
+\begin{minted}
+[
+frame=lines,
+framesep=1mm,
+baselinestretch=1.2,
+fontsize=\footnotesize,
+linenos,
+]
+{text}
+No se pueden añadir más recetas.
+\end{minted}
+\end{listing}
+
+En cualquier caso, el método \texttt{agregarReceta} debe devolver \texttt{true} si la receta se ha añadido correctamente y \texttt{false} en otro caso.
+
+El mecanismo de inserción de recetas en el libro no está especificado, por lo que puedes elegir la estructura de datos que consideres más adecuada para almacenar las recetas. Ten en cuenta que el libro de recetas tiene un tamaño fijo, que se especifica como parámetro de ejecución.
+
+\paragraph{Buscar receta}
+
+La funcionalidad que nos permite buscar una receta se encapsula en el método
+
+\mintinline[fontsize=\footnotesize]{java}|public Receta[] buscarRecetaPorNombre(String texto)|
+
+que recibe como parámetro el texto a buscar en el nombre de las recetas. El método devuelve un array con aquellas recetas que contienen el texto de búsqueda como subcadena\sidenote{Puedes usar el método \texttt{contains} de la clase \texttt{String}} del nombre. Si no se encuentra ninguna receta que cumpla con el criterio de búsqueda, el método debe devolver un array vacío.
+
+\paragraph{Eliminar receta}
+
+La funcionalidad que nos permite eliminar una receta se encapsula en el método
+
+\mintinline[fontsize=\footnotesize]{java}|public void eliminarReceta(Receta seleccionada)|
+
+que recibe como parámetro la receta a eliminar. Si la receta no se encuentra\sidenote{Encontrar una receta significa que son \textbf{el mismo} objeto.} en el libro, el método no realiza ninguna acción.
+
+\paragraph{Guardar y cargar recetas}
+
+Para guardar y cargar las recetas a partir de un fichero de texto se usa una representación textual \textbf{simplificada} de las recetas (ver~\Cref{lst:receta-torawstring}).
+
+El proceso de guardado de las recetas se realiza en el método
+
+\mintinline[fontsize=\footnotesize]{java}|public void guardarRecetasEnArchivo(String nombreArchivo)|
+
+que recibe como parámetro el nombre del archivo en el que se guardarán las recetas. Hay que usar el método \texttt{toRawString} de la clase \texttt{Receta} para obtener la representación textual de cada receta, y escribir esta información en el archivo de texto\sidenote{En el caso de que el fichero a escribir ya exista, se \textbf{sobreescribirá} su contenido}.
+
+El proceso de carga de las recetas se realiza en el método
+
+\begin{minted}[fontsize=\footnotesize]{java}
+public void cargarRecetasDeArchivo(String nombreArchivo, 
+                                   int maxIngredientes,
+                                   int maxInstrucciones)
+\end{minted}
+
+que recibe como parámetros el nombre del archivo del que se cargarán las recetas y el número máximo de ingredientes e instrucciones que puede tener cada receta. El método debe leer el contenido del archivo de texto, crear las recetas correspondientes a partir de la información leída y añadirlas al libro de recetas.
+
+Es importante tener en cuenta que el método de carga debe ser capaz de cargar recetas de un archivo que haya sido guardado previamente con el método para escribirlas en el fichero. Además, el método debe ser capaz de cargar recetas de un archivo que contenga un número de recetas superior al tamaño del libro de recetas, en cuyo caso se deben cargar únicamente las primeras recetas que quepan en el libro.
+
+Al tratarse de operaciones con ficheros, es necesario manejar las excepciones que puedan surgir durante la lectura y escritura de los archivos. Sin embargo, no es necesario que se capturen las excepciones en el propio método. En su lugar, se deben lanzar las excepciones para que sean manejadas en el método que llama a \texttt{guardarRecetasEnArchivo} y \texttt{cargarRecetasDeArchivo}.
+
+\paragraph{Métodos auxiliares}
+
+Además de los métodos anteriores, el componente \texttt{LibroDeRecetas} debe proporcionar los métodos auxiliares que son necesarios para la correcta implementación de los otros componentes y se detallan a continuación:
+
+\mintinline[fontsize=\footnotesize]{java}|public LibroDeRecetas(int maxRecetasEnLibro)|
+
+Constructor de la clase que recibe como parámetro el número máximo de recetas que puede contener el libro.
+
+\mintinline[fontsize=\footnotesize]{java}|public int numRecetas()|
+
+Devuelve el número de recetas que contiene el libro.
+
+\mintinline[fontsize=\footnotesize]{java}|public boolean recetasCompletas()|
+
+Devuelve \texttt{true} si el libro de recetas está completo, es decir, si contiene el número máximo de recetas, \texttt{false} en otro caso.
+
+\subsubsection{El planificador semanal}
+
+El componente \texttt{PlanificadorSemanal} es el encargado de planificar las comidas para cada día de la semana y de guardar el plan semanal en un archivo. A continuación, nos centramos en cada una de las funcionalidades que debe implementar este componente.
+
+\paragraph{Planificar comidas}
+
+La funcionalidad que nos permite planificar una comida para un día de la semana se encapsula en el método
+
+\mintinline[fontsize=\footnotesize]{java}|public void agregarComida(int dia, Receta receta)|
+
+que recibe como parámetros el día de la semana en el que se planifica la comida y la receta que se va a añadir. El día de la semana se representa como un número entero, siendo 0 el lunes y 6 el domingo (ver~\Cref{tab:int-semana}). Si ya hay una receta planificada para el día especificado, la receta anterior se reemplaza por la nueva.
+
+\begin{margintable}
+    \footnotesize
+    \caption{Días de la semana representados como números enteros.}\label{tab:int-semana}
+    \begin{tabular}{C{0.1\linewidth} L{0.4\linewidth}}
+        \toprule
+        \textbf{\#} & \textbf{Día}\\
+        \midrule
+        0 & Lunes\\
+        1 & Martes\\
+        2 & Miércoles\\
+        3 & Jueves\\
+        4 & Viernes\\
+        5 & Sábado\\
+        6 & Domingo\\
+        \bottomrule
+    \end{tabular}
+\end{margintable}
+
+\paragraph{Representación textual del plan semanal}
+
+Para mostrar el plan semanal por pantalla, se debe proporcionar una representación textual del mismo. Esta representación debe mostrar las recetas planificadas para cada día de la semana. El método que genera esta representación textual es
+
+\mintinline[fontsize=\footnotesize]{java}|public String toString()|
+
+que devuelve una cadena de texto con el plan semanal en el siguiente formato\sidenote{Ten \textbf{muy en cuenta} el formato de salida: líneas, espacios, adornos, etc.}:
+
+\begin{fullwidth}
+\begin{listing}[H]
+\caption{Formato de representación textual del plan semanal}\label{lst:plan-semanal-tostring}
+\begin{minted}
+[
+frame=lines,
+framesep=1mm,
+baselinestretch=1.2,
+fontsize=\footnotesize,
+linenos
+]
+{text}
+---------------------------------------------------------------------------------------------------------------------------------------------------
+    Lunes                Martes               Miércoles            Jueves               Viernes              Sábado               Domingo            
+---------------------------------------------------------------------------------------------------------------------------------------------------
+    Tortilla de Patatas                                            Gazpacho Andaluz                                               Tarta de Manzana   
+---------------------------------------------------------------------------------------------------------------------------------------------------
+\end{minted}
+\end{listing}
+\end{fullwidth}
+            
+
+\subsubsection{Utilidades}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
