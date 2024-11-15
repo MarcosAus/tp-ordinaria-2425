@@ -139,7 +139,7 @@
 \fancyhead[R]{\rightheadercontent} % Right header
 
 \fancyfoot[L]{} % Left footer
-\fancyfoot[C]{\thepage~of \pageref{LastPage}} % Center footer
+\fancyfoot[C]{\thepage~de \pageref{LastPage}} % Center footer
 \fancyfoot[R]{} % Right footer
 
 \usepackage{calc} % Allows arithmetic in LaTeX commands
@@ -216,7 +216,7 @@
 
 \usepackage{titletoc} % Required for manipulating the table of contents
 
-\setcounter{tocdepth}{2} % Show entries in the table of contents down to subsections
+\setcounter{tocdepth}{3} % Show entries in the table of contents down to subsections
 
 \renewcommand{\contentsname}{Table of Contents} % Rename the table of contents section heading
 
