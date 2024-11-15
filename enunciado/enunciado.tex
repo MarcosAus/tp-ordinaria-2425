@@ -136,7 +136,7 @@
 
     \subsection*{Atribución}
 
-    El enunciado de esta práctica está basado en la plantilla ``Sullivan Business Report'' de Vel, publicada en \url{https://www.LaTeXTemplates.com}, que se distribuye bajo una licencia \ccbyncsaeu~Atribución/Reconocimiento-NoComercial-CompartirIgual 4.0 Internacional de Creative Commons.
+    El enunciado de esta práctica se ha elaborado con \LaTeX, basándose en la plantilla ``Sullivan Business Report'' de Vel, publicada en \url{https://www.LaTeXTemplates.com}, que se distribuye bajo una licencia \ccbyncsaeu~Atribución/Reconocimiento-NoComercial-CompartirIgual 4.0 Internacional de Creative Commons.
     
     \subsection*{Contacto}
     
@@ -150,7 +150,7 @@
     
     \begin{tabular}{@{} L{0.05\linewidth} L{0.15\linewidth} L{0.6\linewidth} @{}} % Column widths specified here, change as needed for your content
         \toprule
-        v1.0 & 14-11-2024 & Versión final del enunciado de la práctica.\\
+        v1.0 & 15-11-2024 & Versión final del enunciado de la práctica.\\
         \bottomrule
     \end{tabular}
 \end{twothirdswidth}
@@ -171,7 +171,7 @@
 %	SECTIONS
 %----------------------------------------------------------------------------------------
 
-\section{Introducción} % Top level section
+\section{Introducción}
 La organización y planificación de las comidas es una tarea cotidiana que muchas personas enfrentan a diario. ¿Qué pasaría si pudieras simplificar este proceso utilizando tus habilidades de programación? En esta práctica, desarrollarás una aplicación de consola en \texttt{Java} para gestionar un libro de recetas y planificar las comidas de una semana, combinando creatividad y programación para resolver un problema real.
 
 Este proyecto te permitirá poner en práctica conceptos fundamentales de programación, como la lectura y escritura desde la consola, la manipulación de arrays, el diseño de funciones y el uso de estructuras de control.
@@ -186,13 +186,13 @@ Este proyecto no solo fortalecerá tus habilidades técnicas en \texttt{Java}, s
 
 \subsection{Preparación del entorno de desarrollo} % Second level section
 
-Para el desarrollo de este proyecto, podrás utilizar cualquier entorno de desarrollo integrado (IDE) que prefieras, aunque el soporte completo será ofrecido únicamente para \texttt{IntelliJ IDEA}, un potente IDE de \texttt{JetBrains} ampliamente utilizado en la industria para el cual, además, tenemos licencia educativa toda la comunidad universitaria.
+Para el desarrollo de este proyecto, podrás utilizar cualquier entorno de desarrollo integrado (IDE) que prefieras, aunque el soporte completo será ofrecido únicamente para \texttt{IntelliJ IDEA}, un potente IDE de \texttt{JetBrains} ampliamente utilizado en la industria para el cual, además, tenemos licencia educativa\fullsidecite{jetbrains-education} toda la comunidad universitaria.
 
 El esqueleto del proyecto se encuentra disponible en un repositorio de \texttt{GitHub}. El repositorio está configurado como plantilla, lo que significa que puedes crear un nuevo repositorio a partir de él y comenzar a trabajar en tu propia copia del proyecto. Para ello, sigue los siguientes pasos:
 
 \begin{enumerate}
     \item Accede al repositorio del proyecto\fullsidecite{tp-ordinaria-2425}.
-    \item Haz clic en el botón ``Use this template'' para crear un nuevo repositorio a partir de la plantilla\sidenote{Tienes documentación sobre esto en el siguiente \href{https://docs.github.com/es/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template}{\color{blue}enlace}}.
+    \item Haz clic en el botón ``Use this template'' para crear un nuevo repositorio a partir de la plantilla\fullsidecite{repo-template}.
     \item Introduce un nombre para tu repositorio y haz clic en ``Create repository from template''.
     \item Clona tu nuevo repositorio en tu equipo y comienza a trabajar en tu copia del proyecto:
     \begin{itemize}
@@ -204,7 +204,7 @@ El esqueleto del proyecto se encuentra disponible en un repositorio de \texttt{G
 
 El proyecto se ha creado con \texttt{Maven}\fullsidecite{Redmond2008Jan}, un sistema de automatización de compilación y gestión de dependencias. \texttt{Maven} se encargará de gestionar las dependencias del proyecto y de compilarlo. Si utilizas \texttt{IntelliJ IDEA}, el IDE se encargará de importar el proyecto y configurar \texttt{Maven} automáticamente. Si trabajas desde la línea de comandos, puedes compilar el proyecto con el comando \texttt{mvn compile}. 
 
-En el caso de que quieras gestionar las dependencias del proyecto manualmente, en la~\cref{tab:dependencias-proyecto} se detallan las dependencias necesarias para el proyecto
+En el caso de que quieras gestionar las dependencias del proyecto manualmente, en la~\Cref{tab:dependencias-proyecto} se detallan las dependencias necesarias para el proyecto
 
 \begin{margintable}
     \footnotesize
@@ -228,10 +228,13 @@ La herramienta a desarrollar es lo que se conoce como una aplicación de línea 
 Para la realización del proyecto se proporciona un esquema de clases y métodos que los estudiantes deberán completar. Se usarán los conceptos de programación ya trabajados en la asignatura de Fundamentos de Programación.
 
 \subsection{Componentes a desarrollar}
-La arquitectura del sistema se divide en cinco componentes, como se puede observar en la siguiente tabla:
+
+
+
+La arquitectura del sistema se divide en cinco componentes, como se puede observar en la~\Cref{tab:componentes-desarrollar}. Cada componente tiene una funcionalidad específica y se encarga de gestionar una parte del sistema.
 
 \begin{table*} % Use the table* environment for full width tables
-    \caption{Componentes a desarrollar.}
+    \caption{Componentes a desarrollar.}\label{tab:componentes-desarrollar}
     \begin{tabular}{C{0.03\linewidth} L{0.3\linewidth} L{0.55\linewidth}}
         \toprule
         \textit{\#} & \textbf{Componente} & \textbf{Descripción} \\
@@ -379,7 +382,7 @@ La funcionalidad que nos permite agregar una receta se encapsula en el método
 
 \mintinline[fontsize=\footnotesize]{java}|public boolean agregarReceta(Receta receta)|
 
-que recibe como parámetro\sidenote{Será tu responsabilidad comprobar si la receta no es nula.} la receta a añadir. El método devuelve un valor booleano que indica si la operación se ha realizado correctamente. Si se intenta añadir una receta a un libro que ya está completo, el sistema debe mostrar un mensaje de error\sidenote{Recuerda que los casos de prueba esperan estos mensajes en concreto, por lo que tienes que ser \textbf{preciso} con espacios y signos de puntuación.} y no permitir la adición:
+que recibe como parámetro\sidenote{Será tu responsabilidad comprobar si la receta es un valor nulo.} la receta a añadir. El método devuelve un valor booleano que indica si la operación se ha realizado correctamente. Si se intenta añadir una receta a un libro que ya está completo, el sistema debe mostrar un mensaje de error\sidenote{Recuerda que los casos de prueba esperan estos mensajes en concreto, por lo que tienes que ser \textbf{preciso} con espacios y signos de puntuación.} y no permitir la adición:
 
 \begin{listing}[H]
 \caption{Mensaje de error al intentar añadir una receta si el libro está completo.}\label{lst:error-maximo-libro}
@@ -693,7 +696,7 @@ La funcionalidad que permite consultar y editar una receta se implementa en el m
 
 \mintinline[fontsize=\footnotesize]{java}|private void consultarReceta(Scanner scanner)|
 
-que recibe como parámetro un objeto de la clase \texttt{Scanner} para leer la entrada del usuario. El método debe solicitar al usuario el texto a buscar dentro del nombre de las recetas que desea consultar o editar. Una vez realizada la consulta, se le muestra al usuario el listado de recetas resultante y se le pide que seleccione una de ellas. A continuación, se le muestra la información de la receta seleccionada y se le muestra el menú de edición de receta, que permite añadir un ingrediente, una instrucción o eliminar la receta:
+que recibe como parámetro un objeto de la clase \texttt{Scanner} para leer la entrada del usuario. El método debe solicitar al usuario el texto a buscar dentro del nombre de las recetas que desea consultar o editar\sidenote{Si el usuario introduce \texttt{-FIN-} se cancela la búsqueda.}. Una vez realizada la consulta, se le muestra al usuario el listado de recetas resultante y se le pide que seleccione una de ellas. A continuación, se le muestra la información de la receta seleccionada y se le muestra el menú de edición de receta, que permite añadir un ingrediente, una instrucción o eliminar la receta:
 
 \begin{code}
 \begin{minted}
@@ -952,10 +955,65 @@ Para que puedas comprobar que tu implementación es correcta, se proporcionan un
 
 Aunque implementar y diseñar los casos de prueba queda fuera del alcance de esta asignatura, es importante que conozcas su utilidad y cómo se utilizan. En este caso, los casos de prueba se especifican usando código Java en ficheros que contienen una serie de comandos y mensajes esperados que se pueden utilizar para verificar el correcto funcionamiento de tu programa.
 
+\newpage
+\begin{twothirdswidth}
 \section{Criterios de evaluación}\label{sec:criterios-evaluacion}
 
+Para llevar a cabo la evaluación de la práctica se tendrán en cuenta varios aspectos complementarios que se detallan a continuación.
 
+\subsection{Casos de prueba}\label{sec:criterios-casos-prueba}
+
+Se proporcionan una serie de casos de prueba que se utilizarán para comprobar el correcto funcionamiento de tu programa. Estos casos de prueba se han diseñado para cubrir diferentes situaciones y comprobar que tu implementación es correcta. Es importante que tu programa pase todos los casos de prueba para asegurar que cumple con los requisitos y funcionalidades solicitadas.
+
+\faExclamation~\textbf{Importante} Durante la evaluación, se utilizarán casos de prueba adicionales que no se proporcionan en el enunciado. Estos casos de prueba adicionales se utilizarán para comprobar que tu implementación es correcta y cumple con los requisitos solicitados.
+
+El hecho de que tu programa pase los casos de prueba es condición necesaria, pero no suficiente, para obtener una calificación alta. Además de pasar los casos de prueba, tu implementación se evaluará con el resto de criterios detallados en esta sección.
+
+\subsection{Diseño y estructura del código}\label{sec:criterios-diseno}
+
+Se valorará la claridad, organización y estructura del código fuente de tu programa. Es importante que tu implementación sea fácil de leer, comprender y mantener. Se valorará positivamente la correcta nomenclatura de variables y métodos, la división en métodos y clases coherentes y la reutilización de código.
+
+Se valorará el uso de buenas prácticas de programación y el cumplimiento de los principios de diseño y desarrollo de software. Es importante que tu implementación siga las recomendaciones y buenas prácticas de programación en Java, así como que siga los principios de diseño y desarrollo de software.
+
+\faExclamation~\textbf{Importante} Se valorará negativamente:
+
+\begin{itemize}
+    \item Código duplicado o redundante.
+    \item Métodos o clases demasiado largos o complejos.
+    \item Falta de modularidad y reutilización de código.
+    \item Uso incorrecto de estructuras de control: bucles y condicionales.
+    \item Romper la ejecución de un bucle con \texttt{break} o \texttt{return} en lugar de usar una condición.
+    \item Uso de más de un \texttt{return} en un método.
+    \item Mal uso de excepciones.
+\end{itemize}
+
+\subsection{Documentación y comentarios}\label{sec:criterios-documentacion}
+
+Se valorará la calidad de la documentación y los comentarios en el código fuente de tu programa. Es importante que tu implementación esté correctamente documentada y que los comentarios sean claros y concisos. Se valorará positivamente la presencia de comentarios que expliquen el propósito de las clases y métodos, así como el significado de variables y parámetros.
+
+Al igual que en el diseño y estructura del código, se valorará negativamente la falta de comentarios y documentación, así como la presencia de comentarios innecesarios o confusos.
+
+\subsection{Errores graves}\label{sec:criterios-errores}
+
+A continuación, se detallan una serie de errores graves que, de estar presentes en tu implementación, \textbf{supondrán un suspenso} en la calificación final de la práctica. Es importante que tengas en cuenta estos errores y los evites en tu implementación:
+
+\begin{itemize}
+    \item No compilar: tu programa no compila correctamente y no se puede ejecutar.
+    \item Argumentos incorrectos: tu programa no recibe los argumentos de la línea de comandos correctamente.
+    \item Plagio: tu implementación es sospechosa de contener código copiado de otras fuentes.
+    \item Código malicioso: tu implementación contiene código malicioso o perjudicial.
+\end{itemize}
+
+\end{twothirdswidth}
 
 %----------------------------------------------------------------------------------------
+
+\newpage
+
+\addcontentsline{toc}{section}{Referencias} % Add the bibliography to the table of contents
+
+\begin{twothirdswidth} % Content in this environment to be at two-thirds of the whole page width
+	\printbibliography[title=Referencias] % Output the bibliography with a custom section title
+\end{twothirdswidth}
 
 \end{document}
