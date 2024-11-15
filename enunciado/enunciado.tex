@@ -25,10 +25,6 @@
 ]{CSSullivanBusinessReport}
 
 \usepackage[spanish,es-noquoting,es-noshorthands,es-tabla,es-nodecimaldot]{babel}
-% \setlocalecaption{english}{contents}{Table of Contents}
-% \setlocalecaption{spanish}{listings}{Código fuente}
-% \setlocalecaption{spanish}{listoflistings}{Lista de código fuente}
-% \renewcommand{\lstlistingname}{Listado}
 
 \usepackage{ccicons}
 \usepackage{minted}
@@ -51,6 +47,11 @@
 \crefname{listing}{código fuente}{códigos fuente}
 
 \crefname{table}{tabla}{tablas}
+
+\usepackage{fancyvrb}
+\fvset{showspaces=true}
+\SaveVerb{verbspace}! !
+\newcommand{\espacio}{\UseVerb{verbspace}}%
 
 %----------------------------------------------------------------------------------------
 %	REPORT INFORMATION
@@ -202,27 +203,6 @@ La arquitectura del sistema se divide en cinco componentes, como se puede observ
 \end{table*}
 
 A continuación se detallan los requisitos de cada componente.
-
-\subsubsection{La interfaz de usuario}\label{sec:interfaz-usuario}
-La interfaz de usuario es el componente que se encarga de gestionar la interacción con el usuario. Debe mostrar un menú con las opciones disponibles y permitir al usuario seleccionar una de ellas. Las opciones disponibles son las siguientes:
-
-\begin{enumerate}
-    \item Agregar Receta
-    \item Consultar/Editar Receta
-    \item Planificar Comidas
-    \item Guardar Recetas
-    \item Cargar Recetas
-    \item Guardar Plan Semanal
-    \item Salir
-\end{enumerate}
-
-El componente se encargará de llamar a los métodos correspondientes de los otros componentes para realizar las acciones solicitadas por el usuario, además de encargarse de la entrada y salida de los datos necesarios para realizar dichas acciones.
-
-Por ejemplo, si el usuario selecciona la opción de agregar receta, la interfaz de usuario se encargará de solicitar la información de la nueva receta al usuario y llamará al método correspondiente del componente que gestiona el libro de recetas.
-
-Una vez realizada la acción solicitada por el usuario, la interfaz de usuario debe volver a mostrar el menú de opciones. El programa debe seguir ejecutándose hasta que el usuario seleccione la opción de salir.
-
-\subsubsection{El libro de recetas}
 
 \subsubsection{La receta}\label{sec:receta}
 
@@ -469,17 +449,17 @@ Para mostrar el plan semanal por pantalla, se debe proporcionar una representaci
 
 \mintinline[fontsize=\footnotesize]{java}|public String toString()|
 
-que devuelve una cadena de texto con el plan semanal en el siguiente formato\sidenote{Ten \textbf{muy en cuenta} el formato de salida: líneas, espacios, adornos, etc.}:
+que devuelve una cadena de texto con el plan semanal en el siguiente formato:
 
 \begin{fullwidth}
 \begin{listing}[H]
-\caption{Formato de representación textual del plan semanal}\label{lst:plan-semanal-tostring}
+\caption{Formato de representación textual del plan semanal (ejemplo)}\label{lst:plan-semanal-tostring}
 \begin{minted}
 [
 frame=lines,
 framesep=1mm,
 baselinestretch=1.2,
-fontsize=\footnotesize,
+fontsize=\tiny,
 linenos
 ]
 {text}
@@ -491,9 +471,154 @@ linenos
 \end{minted}
 \end{listing}
 \end{fullwidth}
-            
+
+Observa que la representación textual del plan semanal muestra las recetas planificadas para cada día de la semana. Si no hay ninguna receta planificada para un día en concreto, el hueco se deja vacío. La representación textual del plan semanal debe incluir un encabezado con los días de la semana y un separador entre el encabezado y las recetas planificadas. Además, cada receta planificada debe estar alineada con el día correspondiente.
+
+\paragraph{Guardar plan semanal}
+
+Para guardar el plan semanal en un archivo de texto se usa una representación textual \textbf{simplificada} del plan semanal. En este caso no se genera la representación simplificada en un método aparte, sino que se realiza todo en el método de guardado:
+
+\mintinline[fontsize=\footnotesize]{java}|public void guardarPlanEnArchivo(String nombreArchivo)|
+
+que recibe como parámetro el nombre del archivo en el que se guardará el plan semanal. El método debe escribir la representación textual del plan semanal en el archivo de texto\sidenote{En el caso de que el fichero a escribir ya exista, se \textbf{sobreescribirá} su contenido}. El formato es el siguiente:
+
+\begin{listing}[H]
+\caption{Formato de representación textual simplificada y compacta del plan semanal (ejemplo)}\label{lst:plan-semanal-torawstring}
+\begin{minted}
+[
+frame=lines,
+framesep=1mm,
+baselinestretch=1.2,
+fontsize=\footnotesize,
+linenos
+]
+{text}
+Lunes: Tortilla de Patatas
+Martes: ---
+Miércoles: ---
+Jueves: Gazpacho Andaluz
+Viernes: ---
+Sábado: ---
+Domingo: Tarta de Manzana
+\end{minted}
+\end{listing}
+
+Observa que la representación textual del plan semanal muestra las recetas planificadas para cada día de la semana. Si no hay ninguna receta planificada para un día en concreto, se muestran tres guiones \texttt{---}. La representación textual del plan semanal debe incluir el nombre del día y la receta planificada, separados por dos puntos.
 
 \subsubsection{Utilidades}
+
+El componente \texttt{Utilidades} proporciona métodos de utilidad para la entrada de datos por teclado. En concreto, se deben implementar los siguientes métodos:
+
+\mintinline[fontsize=\footnotesize]{java}|public static String leerCadena(Scanner teclado, String s)|
+
+Método que muestra el mensaje \texttt{s} por pantalla y lee una cadena de texto introducida por el usuario. El método devuelve la cadena de texto leída.
+
+\begin{minted}[fontsize=\footnotesize]{java}
+public static int leerNumero(Scanner teclado,
+                             String mensaje,
+                             int minimo,
+                             int maximo)
+\end{minted}
+
+Método que muestra el mensaje \texttt{mensaje} por pantalla y lee un número entero introducido por el usuario. El método debe comprobar que el número introducido está en el rango \(\left [\mathrm{minimo},\mathrm{maximo}\right ]\) y, si no es así, volver a solicitar el número. El método devuelve el número entero leído.
+
+\begin{minted}[fontsize=\footnotesize]{java}
+public static int leerDiaDeLaSemana(Scanner teclado,
+                                    String mensaje)
+\end{minted}
+
+Método que muestra el mensaje \texttt{mensaje} por pantalla y lee un caracter introducido por el usuario que representa un día de la semana. El método debe comprobar que el caracter introducido se corresponde con un día de la semana (ver~\Cref{tab:char-semana}) y, si no es así, volver a solicitar el caracter. El método devuelve el número entero correspondiente al día que ha escrito el usuario (ver~\Cref{tab:int-semana}).
+
+\begin{margintable}
+    \footnotesize
+    \caption{Días de la semana representados como caracteres.}\label{tab:char-semana}
+    \begin{tabular}{C{0.2\linewidth} L{0.4\linewidth}}
+        \toprule
+        \textbf{Char} & \textbf{Día}\\
+        \midrule
+        L & Lunes\\
+        M & Martes\\
+        X & Miércoles\\
+        J & Jueves\\
+        V & Viernes\\
+        S & Sábado\\
+        D & Domingo\\
+        \bottomrule
+    \end{tabular}
+\end{margintable}
+
+\mintinline[fontsize=\footnotesize]{java}|public static int diaSemanaAPosicion(String dia)|
+
+Método que recibe como parámetro el caracter de un día de la semana (ver~\Cref{tab:char-semana}) y devuelve el número entero correspondiente a ese día (ver~\Cref{tab:int-semana}).
+
+\mintinline[fontsize=\footnotesize]{java}|public static String posicionADiaSemana(int pos)|
+
+Método que recibe como parámetro el número entero de un día de la semana (ver~\Cref{tab:int-semana}) y devuelve \textbf{el nombre completo} del día que corresponde a esa posición (ver~\Cref{tab:char-semana}).
+
+\subsubsection{La interfaz de usuario}\label{sec:interfaz-usuario}
+La interfaz de usuario es el componente que se encarga de gestionar la interacción con el usuario. Debe mostrar un menú con las opciones disponibles y permitir al usuario seleccionar una de ellas. Las opciones disponibles son las siguientes:
+
+\begin{enumerate}
+    \item Agregar Receta
+    \item Consultar/Editar Receta
+    \item Planificar Comidas
+    \item Guardar Recetas
+    \item Cargar Recetas
+    \item Guardar Plan Semanal
+    \item Salir
+\end{enumerate}
+
+El componente se encargará de llamar a los métodos correspondientes de los otros componentes para realizar las acciones solicitadas por el usuario, además de encargarse de la entrada y salida de los datos necesarios para realizar dichas acciones.
+
+Por ejemplo, si el usuario selecciona la opción de agregar receta, la interfaz de usuario se encargará de solicitar la información de la nueva receta al usuario y llamará al método correspondiente del componente que gestiona el libro de recetas.
+
+Una vez realizada la acción solicitada por el usuario, la interfaz de usuario debe volver a mostrar el menú de opciones. El programa debe seguir ejecutándose hasta que el usuario seleccione la opción de salir. Este bucle de ejecución se conoce como el bucle principal del programa, y se define en el método
+
+\mintinline[fontsize=\footnotesize]{java}|private void menuPrincipal(Scanner scanner)|
+
+A continuación se puede ver un ejemplo de cómo se debe mostrar el menú de opciones al usuario (observa que el menú se muestra en la consola, que el usuario debe introducir un número para seleccionar una opción y que se muestra un símbolo\sidenote{Se muestran los espacios en blanco de manera explícita usando el símbolo concreto \espacio ~para que puedas generar una salida exactamente igual.} para representar los espacios en blanco \espacio ):
+
+\begin{listing}[H]
+\caption{Menu principal y petición de acción al usuario}\label{lst:menu-principal}
+\begin{minted}
+[
+frame=lines,
+framesep=1mm,
+baselinestretch=1.2,
+fontsize=\footnotesize,
+linenos,
+showspaces,
+escapeinside=||,
+]
+{text}
+--- Menú Principal ---
+1. Agregar Receta
+2. Consultar/Editar Receta
+3. Planificar Comidas
+4. Guardar Recetas
+5. Cargar Recetas
+6. Guardar Plan Semanal
+7. Salir
+
+Elige una opción:| |
+\end{minted}
+\end{listing}
+
+
+A continuación, se detalla la funcionalidad que debe implementar la interfaz de usuario para cada una de las opciones del menú.
+
+\paragraph{Agregar Receta}
+
+La funcionalidad que permite agregar una receta se implementa en el método
+
+\mintinline[fontsize=\footnotesize]{java}|private void agregarReceta(Scanner scanner)|
+
+que recibe como parámetro un objeto de la clase \texttt{Scanner} para leer la entrada del usuario. El método debe solicitar al usuario el nombre de la receta. A continuación, debe solicitar al usuario que introduzca los ingredientes e instrucciones de la receta. Una vez introducidos los datos, el método debe crear un objeto de la clase \texttt{Receta} con la información proporcionada y añadir la receta al libro de recetas (ver~\Cref{fig:agregar-receta}).
+
+\begin{marginfigure}
+	\includegraphics[width=\linewidth]{Images/agregar-receta.png}
+	\caption{Diagrama de flujo para agregar receta}\label{fig:agregar-receta}
+\end{marginfigure}
 
 %----------------------------------------------------------------------------------------
 
