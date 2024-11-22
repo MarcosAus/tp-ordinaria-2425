@@ -1,17 +1,32 @@
 import java.util.Scanner;
-
 /**
  * Clase con métodos de utilidad para la entrada de datos por teclado.
  */
 public class Utilidades {
     public static String leerCadena(Scanner teclado, String s) {
         // Muestra un mensaje y lee una cadena por teclado
-        return null; // @todo MODIFICAR PARA DEVOLVER LA CADENA LEÍDA
+        System.out.println(s);
+        teclado=new Scanner(System.in);
+        return teclado.nextLine();
     }
 
     public static int leerNumero(Scanner teclado, String mensaje, int minimo, int maximo) {
         // Muestra un mensaje y lee un número por teclado (si no es un número, vuelve a solicitar uno)
-        return 0; // @todo MODIFICAR PARA DEVOLVER EL NÚMERO LEÍDO
+        System.out.println(mensaje);
+        teclado = new Scanner(System.in);
+        int ResultDeLeerNumero=0;
+        try {
+            int entrada = teclado.nextInt();
+            while (entrada < minimo || entrada > maximo) {
+                System.out.println("Número fuera del rango permitido, por favor intente de nuevo: ");
+                entrada = teclado.nextInt();
+            }
+            ResultDeLeerNumero = entrada;
+        } catch (NumberFormatException ex) {
+            System.out.println("Entrada en fomato inválida");
+            leerNumero(teclado, mensaje, minimo, maximo);
+        }
+        return ResultDeLeerNumero;
     }
 
     public static int leerDiaDeLaSemana(Scanner teclado, String mensaje) {
