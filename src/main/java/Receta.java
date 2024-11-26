@@ -31,18 +31,22 @@ private String[] instrucciones;
 
     public boolean agregarIngrediente(String ingrediente) {
         // Añade un ingrediente a la receta
-        if (ingredientes.length <= maxIngredientes) {
-            ingredientes[ingredientes.length] = ingrediente;
-            return true;
+        for (int i=0; i<ingredientes.length; i++) {
+            if (ingredientes[i]==null) {
+                ingredientes[i]=ingrediente;
+                return true;
+            }
         }
         return false; // @todo MODIFICAR PARA DEVOLVER SI SE HA AÑADIDO EL INGREDIENTE
     }
 
     public boolean agregarInstruccion(String instruccion) {
         // Añade una instrucción a la receta
-        if (instrucciones.length <= maxInstrucciones) {
-            instrucciones[instrucciones.length]=instruccion;
-            return true;
+        for (int i=0; i<instrucciones.length; i++) {
+            if (instrucciones[i]==null) {
+                instrucciones[i]=instruccion;
+                return true;
+            }
         }
         return false; // @todo MODIFICAR PARA DEVOLVER SI SE HA AÑADIDO LA INSTRUCCIÓN
     }
@@ -54,17 +58,27 @@ private String[] instrucciones;
 
     public boolean instruccionesCompletas() {
         // Comprueba si la receta tiene el máximo de instrucciones
-        return false; // @todo MODIFICAR PARA DEVOLVER SI ESTÁN COMPLETAS LAS INSTRUCCIONES
+        return instrucciones.length == maxInstrucciones; // @todo MODIFICAR PARA DEVOLVER SI ESTÁN COMPLETAS LAS INSTRUCCIONES
     }
 
     public int numIngredientes() {
         // Devuelve el número de ingredientes de la receta
-        return 0; // @todo MODIFICAR PARA DEVOLVER EL NÚMERO DE INGREDIENTES
+        for (int i=0; i<ingredientes.length; i++) {
+            if (ingredientes[i]==null) {
+                return i;
+            }
+        }
+        return maxIngredientes; // @todo MODIFICAR PARA DEVOLVER EL NÚMERO DE INGREDIENTES
     }
 
     public int numInstrucciones() {
         // Devuelve el número de instrucciones de la receta
-        return 0; // @todo MODIFICAR PARA DEVOLVER EL NÚMERO DE INSTRUCCIONES
+        for (int i=0; i<instrucciones.length; i++) {
+            if (instrucciones[i]==null) {
+                return i;
+            }
+        }
+        return maxInstrucciones; // @todo MODIFICAR PARA DEVOLVER EL NÚMERO DE INSTRUCCIONES
     }
 
     @Override
