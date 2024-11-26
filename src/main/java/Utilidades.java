@@ -35,14 +35,19 @@ public class Utilidades {
         // dentro de la semana (0-6)
         System.out.println(mensaje);
         teclado=new Scanner(System.in);
+        int posicion=0;
         try {
             String diaDeLaSemana = teclado.nextLine();
-            return diaSemanaAPosicion(diaDeLaSemana);
+            diaDeLaSemana=diaDeLaSemana.toUpperCase();
+            posicion = diaSemanaAPosicion(diaDeLaSemana);
+            if (posicion == -1) {
+                System.out.println("Error. Introduzca la primera letra del día deseado");
+            }
         } catch (InputMismatchException ex) {
             System.out.println("Entrada en formato inválido");
             leerDiaDeLaSemana(teclado,mensaje);
         }
-        return 0; // @todo MODIFICAR PARA DEVOLVER EL DÍA DE LA SEMANA LEÍDO
+        return posicion;
     }
 
     public static int diaSemanaAPosicion(String dia) {
