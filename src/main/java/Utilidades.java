@@ -65,13 +65,42 @@ public class Utilidades {
     }
 
     public static String posicionADiaSemana(int pos) {
-        switch (pos){
-            case 0:
-                return "Lunes"; break;
+        String salida = "";
+        try {
+            switch (pos) {
+                case 0:
+                    salida = "Lunes";
+                break;
+                case 1:
+                    salida = "Martes";
+                break;
+                case 2:
+                    salida = "Miércoles";
+                break;
+                case 3:
+                    salida = "Jueves";
+                break;
+                case 4:
+                    salida = "Viernes";
+                break;
+                case 5:
+                    salida = "Sábado";
+                break;
+                case 6:
+                    salida = "Domingo";
+                break;
+                default:
+                    salida = "Error en parámetros";
+                break;
 
+
+            }
+        } catch (IllegalArgumentException ex) {
+            System.out.println("Argumento no permitido, inténtelo de nuevo");
+            posicionADiaSemana(pos);
         }
         // Devuelve el día de la semana (Lunes, Martes, Miércoles, Jueves, Viernes, Sábado, Domingo)
         // correspondiente a una posición dentro de la semana (0-6)
-        return null; // @todo MODIFICAR PARA DEVOLVER EL DÍA DE LA SEMANA
+    return salida;
     }
 }
