@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 /**
  * Clase con métodos de utilidad para la entrada de datos por teclado.
@@ -33,12 +34,34 @@ public class Utilidades {
 
         // Muestra un mensaje, lee un día de la semana por teclado (L, M, X, J, V, S, D) y devuelve su posición
         // dentro de la semana (0-6)
+        System.out.println(mensaje);
+        teclado=new Scanner(System.in);
+        try {
+            String diaDeLaSemana = teclado.nextLine();
+            return diaSemanaAPosicion(diaDeLaSemana);
+        } catch (InputMismatchException ex) {
+            System.out.println("Entrada en formato inválido");
+            leerDiaDeLaSemana(teclado,mensaje);
+        }
         return 0; // @todo MODIFICAR PARA DEVOLVER EL DÍA DE LA SEMANA LEÍDO
     }
 
     public static int diaSemanaAPosicion(String dia) {
         // Devuelve la posición de un día de la semana (L, M, X, J, V, S, D) dentro de la semana (0-6)
-        return 0; // @todo MODIFICAR PARA DEVOLVER LA POSICIÓN DEL DÍA DE LA SEMANA
+        dia=dia.toUpperCase();
+        int posicion;
+        switch (dia) {
+            case "L": posicion = 0; break;
+            case "M": posicion = 1; break;
+            case "X": posicion = 2; break;
+            case "J": posicion = 3; break;
+            case "V": posicion = 4; break;
+            case "S": posicion = 5; break;
+            case "D": posicion = 6; break;
+            default:
+                posicion = -1;
+        }
+        return posicion;
     }
 
     public static String posicionADiaSemana(int pos) {
