@@ -30,27 +30,25 @@ public class Utilidades {
     }
 
     public static int leerDiaDeLaSemana(Scanner teclado, String mensaje) {
-        System.out.println("Introduzca el día de la semana ");
-        teclado = new Scanner(System.in);
-        String DiaSemanaLiteral = ;
+
         // Muestra un mensaje, lee un día de la semana por teclado (L, M, X, J, V, S, D) y devuelve su posición
         // dentro de la semana (0-6)
-        return teclado; // @todo MODIFICAR PARA DEVOLVER EL DÍA DE LA SEMANA LEÍDO
+        return 0; // @todo MODIFICAR PARA DEVOLVER EL DÍA DE LA SEMANA LEÍDO
     }
 
     public static int diaSemanaAPosicion(String dia) {
-        switch (teclado) {
-
-        }
         // Devuelve la posición de un día de la semana (L, M, X, J, V, S, D) dentro de la semana (0-6)
         return 0; // @todo MODIFICAR PARA DEVOLVER LA POSICIÓN DEL DÍA DE LA SEMANA
     }
 
     public static String posicionADiaSemana(int pos) {
+        switch (pos){
+            case 0:
+                return "Lunes"; break;
+
+        }
         // Devuelve el día de la semana (Lunes, Martes, Miércoles, Jueves, Viernes, Sábado, Domingo)
         // correspondiente a una posición dentro de la semana (0-6)
         return null; // @todo MODIFICAR PARA DEVOLVER EL DÍA DE LA SEMANA
     }
-
-
 }
