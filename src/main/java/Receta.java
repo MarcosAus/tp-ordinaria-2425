@@ -53,12 +53,22 @@ private String[] instrucciones;
 
     public boolean ingredientesCompletos() {
         // Comprueba si la receta tiene el máximo de ingredientes
-        return ingredientes.length == maxIngredientes;// @todo MODIFICAR PARA DEVOLVER SI ESTÁN COMPLETOS LOS INGREDIENTES
+        for (int i=0; i<ingredientes.length; i++) {
+            if (ingredientes[i]==null) {
+                return false;
+            }
+        }
+        return true;// @todo MODIFICAR PARA DEVOLVER SI ESTÁN COMPLETOS LOS INGREDIENTES
     }
 
     public boolean instruccionesCompletas() {
         // Comprueba si la receta tiene el máximo de instrucciones
-        return instrucciones.length == maxInstrucciones; // @todo MODIFICAR PARA DEVOLVER SI ESTÁN COMPLETAS LAS INSTRUCCIONES
+        for (int i=0; i<instrucciones.length; i++) {
+            if (instrucciones[i]==null) {
+                return false;
+            }
+        }
+        return true; // @todo MODIFICAR PARA DEVOLVER SI ESTÁN COMPLETAS LAS INSTRUCCIONES
     }
 
     public int numIngredientes() {
@@ -106,7 +116,7 @@ private String[] instrucciones;
         for (int i=0; i<numInstrucciones(); i++) {
             instrucciones.append(getInstrucciones()[i]).append("\n");
         }
-        return receta + instrucciones.toString(); // @todo MODIFICAR PARA DEVOLVER LA CADENA CORRECTA
+        return receta + instrucciones.toString() + "-----" + "\n"; // @todo MODIFICAR PARA DEVOLVER LA CADENA CORRECTA
     }
 
     public int getMaxIngredientes() {

@@ -38,8 +38,11 @@ public class Utilidades {
             String diaDeLaSemana = teclado.nextLine();
             diaDeLaSemana=diaDeLaSemana.toUpperCase();
             posicion = diaSemanaAPosicion(diaDeLaSemana);
-            if (posicion == -1) {
-                System.out.println("Error. Introduzca la primera letra del día deseado");
+            while (posicion == -1) {
+                System.out.println("Error. Introduzca la primera letra del día deseado: ");
+                diaDeLaSemana=teclado.nextLine();
+                diaDeLaSemana=diaDeLaSemana.toUpperCase();
+                posicion = diaSemanaAPosicion(diaDeLaSemana);
             }
         } catch (InputMismatchException ex) {
             System.out.println("Entrada en formato inválido");
