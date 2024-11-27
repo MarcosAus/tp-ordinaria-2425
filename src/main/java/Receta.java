@@ -83,8 +83,17 @@ private String[] instrucciones;
 
     @Override
     public String toString() {
-        // Devuelve una representación en forma de cadena de la receta
-        return null; // @todo MODIFICAR PARA DEVOLVER LA CADENA CORRECTA
+        StringBuilder recetaFormateada = new StringBuilder("Receta: " + getNombre() + "\n" + "Ingredientes:");
+        for (int i=0; i<numIngredientes(); i++) {
+            recetaFormateada.append("\n" + "- ").append(getIngredientes()[i]);
+        }
+        StringBuilder instrucciones= new StringBuilder("\nInstrucciones:\n");
+        for (int i=0; i<numInstrucciones(); i++) {
+            instrucciones.append((i+1) + ". ").append(getInstrucciones()[i]).append("\n");
+        }
+        return recetaFormateada + instrucciones.toString();
+        // Devuelve una representación en forma de cadena de la recetaFormateada
+        // @todo MODIFICAR PARA DEVOLVER LA CADENA CORRECTA
     }
 
     public String toRawString() {
