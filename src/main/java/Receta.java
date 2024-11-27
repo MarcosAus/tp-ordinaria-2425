@@ -89,7 +89,15 @@ private String[] instrucciones;
 
     public String toRawString() {
         // Devuelve una representación en forma de cadena de la receta sin formato
-        return null; // @todo MODIFICAR PARA DEVOLVER LA CADENA CORRECTA
+        StringBuilder receta= new StringBuilder(getNombre() + "\n");
+        for (int i=0; i<numIngredientes(); i++) {
+            receta.append(getIngredientes()[i]).append("\n");
+        }
+        StringBuilder instrucciones= new StringBuilder("INSTRUCCIONES" + "\n");
+        for (int i=0; i<numInstrucciones(); i++) {
+            instrucciones.append(getInstrucciones()[i]).append("\n");
+        }
+        return receta + instrucciones.toString(); // @todo MODIFICAR PARA DEVOLVER LA CADENA CORRECTA
     }
 
     public int getMaxIngredientes() {
