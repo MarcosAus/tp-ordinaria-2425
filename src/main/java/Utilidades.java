@@ -7,14 +7,12 @@ public class Utilidades {
     public static String leerCadena(Scanner teclado, String s) {
         // Muestra un mensaje y lee una cadena por teclado
         System.out.println(s);
-        teclado=new Scanner(System.in);
         return teclado.nextLine();
     }
 
     public static int leerNumero(Scanner teclado, String mensaje, int minimo, int maximo) {
         // Muestra un mensaje y lee un número por teclado (si no es un número, vuelve a solicitar uno)
         System.out.println(mensaje);
-        teclado = new Scanner(System.in);
         int ResultDeLeerNumero=0;
         try {
             int entrada = teclado.nextInt();
@@ -35,7 +33,6 @@ public class Utilidades {
         // Muestra un mensaje, lee un día de la semana por teclado (L, M, X, J, V, S, D) y devuelve su posición
         // dentro de la semana (0-6)
         System.out.println(mensaje);
-        teclado=new Scanner(System.in);
         int posicion=0;
         try {
             String diaDeLaSemana = teclado.nextLine();
@@ -95,7 +92,7 @@ public class Utilidades {
                     salida = "Domingo";
                 break;
                 default:
-                    salida = "Error en parámetros";
+                    salida = "Desconocido";
                 break;
 
 
