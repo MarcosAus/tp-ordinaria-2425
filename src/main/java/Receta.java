@@ -106,6 +106,7 @@ private String[] instrucciones;
         for (int i=0; i<numInstrucciones(); i++) {
             instrucciones.append(getInstrucciones()[i]).append("\n");
         }
+        instrucciones.append("-----\n");
         return receta + instrucciones.toString(); // @todo MODIFICAR PARA DEVOLVER LA CADENA CORRECTA
     }
 
