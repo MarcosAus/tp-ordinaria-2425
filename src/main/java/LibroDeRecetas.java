@@ -1,19 +1,36 @@
 import java.io.IOException;
+import java.util.Arrays;
 
 public class LibroDeRecetas {
+    private int maxRecetasEnLibro;
+    private Receta[] recetas;
 
     public LibroDeRecetas(int maxRecetasEnLibro) {
         // Inicialización del libro de recetas
+        this.recetas =new Receta[maxRecetasEnLibro];
+
     }
 
     public boolean agregarReceta(Receta receta) {
         // Añade una receta al libro de recetas
+        for (int i = 0; i<this.recetas.length; i++) {
+            if (this.recetas[i]==null) {
+                this.recetas[i]=receta;
+                return true;
+            }
+        }
         return false; // @todo MODIFICAR PARA DEVOLVER SI SE HA AÑADIDO LA RECETA
     }
 
     public Receta[] buscarRecetaPorNombre(String texto) {
+        Receta[] encontradas=new Receta[recetas.length];
         // Busca recetas por su nombre y devuelve todas las encontradas
-        return null; // @todo MODIFICAR PARA DEVOLVER LAS RECETAS ENCONTRADAS
+        for (int i = 0; i< recetas.length; i++) {
+            if (recetas[i]!=null && recetas[i].getNombre().toLowerCase().contains(texto.toLowerCase())) {
+                encontradas[i] = recetas[i];
+            }
+        }
+        return encontradas; // @todo MODIFICAR PARA DEVOLVER LAS RECETAS ENCONTRADAS
     }
 
     public void guardarRecetasEnArchivo(String nombreArchivo) throws IOException {
@@ -26,16 +43,32 @@ public class LibroDeRecetas {
 
     public boolean recetasCompletas() {
         // Comprueba si el libro de recetas está completo
-        return false; // @todo MODIFICAR PARA DEVOLVER SI ESTÁ COMPLETO
+        for (int i = 0; i< recetas.length; i++) {
+            if (recetas[i]==null) {
+                return false;
+            }
+        }
+        return true; // @todo MODIFICAR PARA DEVOLVER SI ESTÁ COMPLETO
     }
 
     public int numRecetas() {
         // Devuelve el número de recetas en el libro
-        return 0; // @todo MODIFICAR PARA DEVOLVER EL NÚMERO DE RECETAS
+        int numRecetas=0;
+        for (int i=0;i<recetas.length;i++) {
+            if (recetas[i]!=null) {
+                numRecetas++;
+            }
+        }
+        return numRecetas; // @todo MODIFICAR PARA DEVOLVER EL NÚMERO DE RECETAS
     }
 
     public void eliminarReceta(Receta seleccionada) {
         // Elimina una receta del libro de recetas
+        for (int i =0;i<recetas.length;i++) {
+            if (recetas[i]==seleccionada) {
+                recetas[i]=null;
+            }
+        }
     }
 }
 
