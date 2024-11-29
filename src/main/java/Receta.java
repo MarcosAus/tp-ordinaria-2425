@@ -116,7 +116,7 @@ private String[] instrucciones;
         for (int i=0; i<numInstrucciones(); i++) {
             instrucciones.append(getInstrucciones()[i]).append("\n");
         }
-        return receta + instrucciones.toString() + "-----" + "\n"; // @todo MODIFICAR PARA DEVOLVER LA CADENA CORRECTA
+        return receta + instrucciones.toString() + "-----\n"; // @todo MODIFICAR PARA DEVOLVER LA CADENA CORRECTA
     }
 
     public int getMaxIngredientes() {
