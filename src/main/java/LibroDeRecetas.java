@@ -1,4 +1,4 @@
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 
 public class LibroDeRecetas {
@@ -7,10 +7,9 @@ public class LibroDeRecetas {
 
     public LibroDeRecetas(int maxRecetasEnLibro) {
         // Inicialización del libro de recetas
-        this.recetas =new Receta[maxRecetasEnLibro];
-
+        recetas =new Receta[maxRecetasEnLibro];
+        this.maxRecetasEnLibro=maxRecetasEnLibro;
     }
-
     public boolean agregarReceta(Receta receta) {
         // Añade una receta al libro de recetas
         for (int i = 0; i<this.recetas.length; i++) {
@@ -35,10 +34,18 @@ public class LibroDeRecetas {
 
     public void guardarRecetasEnArchivo(String nombreArchivo) throws IOException {
         // Guarda las recetas en un archivo de texto
+        try (PrintWriter salida = new PrintWriter(nombreArchivo)) {
+            for (int i = 0; i < maxRecetasEnLibro; i++) {
+                if (recetas[i] != null) {
+                    salida.print(recetas[i].toRawString());
+                }
+            }
+        }
     }
 
     public void cargarRecetasDeArchivo(String nombreArchivo, int maxIngredientes, int maxInstrucciones) throws IOException {
         // Carga las recetas desde un archivo de texto
+
     }
 
     public boolean recetasCompletas() {
