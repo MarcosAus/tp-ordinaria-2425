@@ -23,6 +23,20 @@ public class InterfazUsuario {
     }
 
     private void menuPrincipal(Scanner scanner) {
+        System.out.println(
+                //se podría escribir de manera más sucinta, pero verlo limpio es más cómodo, y optimizar un print tampoco es particularmente útil
+        "--- Menú Principal ---\n" +
+                " 1. Agregar Receta\n" +
+                "2. Consultar/Editar Receta\n" +
+                "3. Planificar Comidas\n" +
+                "4. Guardar Recetas\n" +
+                "5. Cargar Recetas\n" +
+                "6. Guardar Plan Semanal\n" +
+                "7. Salir\n" +
+                "\n" +
+                ">> Elige una opción: >>"
+        );
+
         // Muestra el menú principal y gestiona la entrada del usuario para dirigirlo a la opción seleccionada
     }
 

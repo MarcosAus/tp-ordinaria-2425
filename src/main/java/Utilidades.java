@@ -25,7 +25,7 @@ public class Utilidades {
             System.out.println("Entrada en fomato inválida");
             leerNumero(teclado, mensaje, minimo, maximo);
         }
-        return ResultDeLeerNumero;
+        return ResultDeLeerNumero; //este int hace falta porque al intentar usar directamente entrada da un error aunque la variable se inicialice fuera, así que actúa como puente entre el interior del method y el exterior -E
     }
 
     public static int leerDiaDeLaSemana(Scanner teclado, String mensaje) {
@@ -64,6 +64,7 @@ public class Utilidades {
             case "S": posicion = 5; break;
             case "D": posicion = 6; break;
             default:
+                //creo que este default no se utiliza nunca, pero es mejor tener un caso por defecto en caso de que haya un error que crashear el programa -E
                 posicion = -1;
         }
         return posicion;
@@ -97,8 +98,6 @@ public class Utilidades {
                 default:
                     salida = "Desconocido";
                 break;
-
-
             }
         } catch (IllegalArgumentException ex) {
             System.out.println("Argumento no permitido, inténtelo de nuevo");
