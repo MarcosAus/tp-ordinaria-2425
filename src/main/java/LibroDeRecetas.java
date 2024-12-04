@@ -48,10 +48,19 @@ public class LibroDeRecetas {
         // Carga las recetas desde un archivo de texto
         BufferedReader entrada = null;
         try {
+            int numeroRecetas=0;
             entrada=new BufferedReader(new FileReader(nombreArchivo));
-            int lineaActual=0;
+            int lineaActual=1;
             String linea;
-
+            while (numeroRecetas<=maxRecetasEnLibro) {
+                while ((linea = entrada.readLine()) != null) {
+                    if (lineaActual == 1) {
+                        Receta receta = new Receta(linea, maxIngredientes, maxInstrucciones);
+                        agregarReceta(receta);
+                        lineaActual++;
+                    }
+                }
+            }
         } catch (IOException e) {
             System.out.println("ERROR AL CARGAR LA/S RECETA/S");
         } finally {
@@ -63,6 +72,7 @@ public class LibroDeRecetas {
                 }
             }
         }
+
 
 
     }
