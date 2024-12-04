@@ -1,4 +1,5 @@
 import java.io.*;
+import java.nio.Buffer;
 import java.util.Arrays;
 
 public class LibroDeRecetas {
@@ -45,6 +46,24 @@ public class LibroDeRecetas {
 
     public void cargarRecetasDeArchivo(String nombreArchivo, int maxIngredientes, int maxInstrucciones) throws IOException {
         // Carga las recetas desde un archivo de texto
+        BufferedReader entrada = null;
+        try {
+            entrada=new BufferedReader(new FileReader(nombreArchivo));
+            int lineaActual=0;
+            String linea;
+
+        } catch (IOException e) {
+            System.out.println("ERROR AL CARGAR LA/S RECETA/S");
+        } finally {
+            if (entrada!=null) {
+                try {
+                    entrada.close();
+                }catch (IOException e) {
+                    System.out.println("ERROR AL CERRAR EL FICHERO");
+                }
+            }
+        }
+
 
     }
 

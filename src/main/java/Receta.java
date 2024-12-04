@@ -73,22 +73,24 @@ private String[] instrucciones;
 
     public int numIngredientes() {
         // Devuelve el número de ingredientes de la receta
-        for (int i=0; i<ingredientes.length; i++) {
-            if (ingredientes[i]==null) {
-                return i;
+        int cantidadIngredientes=0;
+        while (cantidadIngredientes<=maxIngredientes) {
+            if (ingredientes[cantidadIngredientes]!=null) {
+                cantidadIngredientes++;
             }
         }
-        return maxIngredientes; // @todo MODIFICAR PARA DEVOLVER EL NÚMERO DE INGREDIENTES
+        return cantidadIngredientes; // @todo MODIFICAR PARA DEVOLVER EL NÚMERO DE INGREDIENTES
     }
 
     public int numInstrucciones() {
         // Devuelve el número de instrucciones de la receta
-        for (int i=0; i<instrucciones.length; i++) {
-            if (instrucciones[i]==null) {
-                return i;
+        int cantidadInstrucciones=0;
+        while (cantidadInstrucciones<=maxInstrucciones) {
+            if (instrucciones[cantidadInstrucciones]!=null) {
+                cantidadInstrucciones++;
             }
         }
-        return maxInstrucciones; // @todo MODIFICAR PARA DEVOLVER EL NÚMERO DE INSTRUCCIONES
+        return cantidadInstrucciones; // @todo MODIFICAR PARA DEVOLVER EL NÚMERO DE INSTRUCCIONES
     }
 
     @Override
