@@ -85,7 +85,7 @@ private String[] instrucciones;
     public int numInstrucciones() {
         // Devuelve el número de instrucciones de la receta
         int cantidadInstrucciones=0;
-        while (cantidadInstrucciones<=maxInstrucciones) {
+        while (cantidadInstrucciones<maxInstrucciones) {
             if (instrucciones[cantidadInstrucciones]!=null) {
                 cantidadInstrucciones++;
             }
