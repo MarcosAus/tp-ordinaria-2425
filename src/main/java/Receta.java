@@ -101,7 +101,7 @@ private String[] instrucciones;
         }
         StringBuilder instrucciones= new StringBuilder("\nInstrucciones:\n");
         for (int i=0; i<numInstrucciones(); i++) {
-            instrucciones.append((i+1) + ". ").append(getInstrucciones()[i]).append("\n");
+            instrucciones.append((i + 1)).append(". ").append(getInstrucciones()[i]).append("\n");
         }
         return recetaFormateada + instrucciones.toString();
         // Devuelve una representación en forma de cadena de la recetaFormateada

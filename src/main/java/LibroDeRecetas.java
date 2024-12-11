@@ -26,16 +26,22 @@ public class LibroDeRecetas {
         Receta[] encontradas=new Receta[recetas.length];
         // Busca recetas por su nombre y devuelve todas las encontradas
         for (int i = 0; i< recetas.length; i++) {
-            if (recetas[i]!=null && recetas[i].getNombre().toLowerCase().contains(texto.toLowerCase())) {
+            if (recetas[i] != null && recetas[i].getNombre().toLowerCase().contains(texto.toLowerCase())) {
                 encontradas[i] = recetas[i];
             }
             //El siguiente cacho simplemente cambia la posición de todos los [null] en el array de "encontradas" al final,
             //para que no haya nulls en el medio del array por si necesitamos buscar la cantidad de matches que tiene o
             //si ponemos un buscador que pare al encontrar el primer [null], que siga funcionando correctamente. -E
-            for (int j = 0; j< encontradas.length; j++) {
-                if (encontradas[j] == null && encontradas[j+1] != null) {
-                    encontradas[j] = encontradas[j+1]; encontradas[j+1] = null;
+            try {
+                for (int j = 0; j <= encontradas.length; j++) {
+                    if (encontradas[j] == null && encontradas[j + 1] != null) {
+                        encontradas[j] = encontradas[j + 1];
+                        encontradas[j + 1] = null;
+                    }
                 }
+
+        } catch (IndexOutOfBoundsException ex) {
+                break;
             }
         }
         return encontradas; // @todo MODIFICAR PARA DEVOLVER LAS RECETAS ENCONTRADAS

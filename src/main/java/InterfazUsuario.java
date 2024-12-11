@@ -57,8 +57,9 @@ public class InterfazUsuario {
         //Esta parte simplemente llama al method de LibroDeRecetas, que te las devuelve todas. -E
         System.out.println("Introduce el texto de la receta a buscar (-FIN- para volver): ");
         Scanner texto = new Scanner(System.in);
-        Receta[] recetas = LibroDeRecetas.buscarRecetaPorNombre(texto);
+
         //Una vez hecho eso, llamamos al method que te selecciona una de ellas en concreto. -E
+
         //TODO: seleccionarReceta()
         return null; // @todo MODIFICAR PARA DEVOLVER LA RECETA SELECCIONADA
     }
@@ -70,13 +71,20 @@ public class InterfazUsuario {
     private Receta seleccionarReceta(Scanner scanner, Receta[] recetas) {
         // Muestra las recetas encontradas y solicita al usuario que elija una
         int cantidadMatches = 1;
+        scanner=new Scanner(System.in);
         for (int i = 0; i<recetas.length; i++) {
             if (recetas[i]!= null) {
-                System.out.println(cantidadMatches + recetas[i]);
+                System.out.println(cantidadMatches + ". " + recetas[i].getNombre());
                 cantidadMatches++;
             }
         }
-        System.out.println("Elige una de las recetas");
+        System.out.println("Elige una receta");
+        int seleccion=scanner.nextInt();
+        if (seleccion<=cantidadMatches) {
+            System.out.println("Receta: " + recetas[seleccion-1]);
+        } else
+            System.out.println("Número de receta introducido no es válido, por favor inténtelo de nuevo.");
+
         return null; // @todo MODIFICAR PARA DEVOLVER LA RECETA SELECCIONADA
     }
 
