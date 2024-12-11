@@ -5,6 +5,7 @@ public class InterfazUsuario {
     private PlanificadorSemanal planificador;
     private int maxIngredientes;
     private int maxInstrucciones;
+    private Receta[] recetas;
 
     public InterfazUsuario(int maxIngredientes, int maxInstrucciones, int maxRecetasEnLibro) {
         // Inicialización de la herramienta de recetas
@@ -50,16 +51,19 @@ public class InterfazUsuario {
         // Busca una receta por su nombre y activa el menú de edición
 
     }
-
     private Receta buscarRecetaPorNombre(Scanner scanner) {
         // Solicita al usuario un texto para buscar y seleccionar una receta por su nombre
 
         //Esta parte simplemente llama al method de LibroDeRecetas, que te las devuelve todas. -E
         System.out.println("Introduce el texto de la receta a buscar (-FIN- para volver): ");
         Scanner texto = new Scanner(System.in);
-        Receta[] recetas = LibroDeRecetas.buscarRecetaPorNombre(texto);
+        if (scanner.nextLine().equals("-FIN")) {
+            menuPrincipal(scanner);
+        }
+        recetas = new Receta[]{buscarRecetaPorNombre(texto)};
         //Una vez hecho eso, llamamos al method que te selecciona una de ellas en concreto. -E
-        //TODO: seleccionarReceta()
+        seleccionarReceta(scanner, recetas);
+
         return null; // @todo MODIFICAR PARA DEVOLVER LA RECETA SELECCIONADA
     }
 
@@ -70,13 +74,24 @@ public class InterfazUsuario {
     private Receta seleccionarReceta(Scanner scanner, Receta[] recetas) {
         // Muestra las recetas encontradas y solicita al usuario que elija una
         int cantidadMatches = 1;
-        for (int i = 0; i<recetas.length; i++) {
+        System.out.println("Recetas encontradas:");
+        for (int i = 0; i<=recetas.length; i++) {
             if (recetas[i]!= null) {
-                System.out.println(cantidadMatches + recetas[i]);
+                System.out.println(cantidadMatches + ". " + recetas[i].getNombre());
                 cantidadMatches++;
             }
         }
-        System.out.println("Elige una de las recetas");
+        System.out.println("Elige una receta: ");
+        int seleccion = scanner.nextInt();
+        while (seleccion>cantidadMatches) {
+            seleccion = scanner.nextInt();
+        }
+        if (seleccion <= cantidadMatches) {
+            return recetas[seleccion-1];
+        }
+
+
+
         return null; // @todo MODIFICAR PARA DEVOLVER LA RECETA SELECCIONADA
     }
 

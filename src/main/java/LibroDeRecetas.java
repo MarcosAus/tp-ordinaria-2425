@@ -60,7 +60,7 @@ public class LibroDeRecetas {
             entrada=new BufferedReader(new FileReader(nombreArchivo));
             int lineaActual=1;
             String linea;
-            while (numeroRecetas<=maxRecetasEnLibro) {
+            while (numeroRecetas<maxRecetasEnLibro) {
                 while ((linea = entrada.readLine()) != null) {
                     if (lineaActual == 1) {
                         Receta receta = new Receta(linea, maxIngredientes, maxInstrucciones);
