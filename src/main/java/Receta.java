@@ -42,7 +42,7 @@ private String[] instrucciones;
 
     public boolean agregarInstruccion(String instruccion) {
         // Añade una instrucción a la receta
-        for (int i=0; i<instrucciones.length; i++) {
+        for (int i=0; i<this.instrucciones.length; i++) {
             if (instrucciones[i]==null) {
                 instrucciones[i]=instruccion;
                 return true;
