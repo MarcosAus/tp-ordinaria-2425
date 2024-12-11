@@ -29,6 +29,14 @@ public class LibroDeRecetas {
             if (recetas[i]!=null && recetas[i].getNombre().toLowerCase().contains(texto.toLowerCase())) {
                 encontradas[i] = recetas[i];
             }
+            //El siguiente cacho simplemente cambia la posición de todos los [null] en el array de "encontradas" al final,
+            //para que no haya nulls en el medio del array por si necesitamos buscar la cantidad de matches que tiene o
+            //si ponemos un buscador que pare al encontrar el primer [null], que siga funcionando correctamente. -E
+            for (int j = 0; j< encontradas.length; j++) {
+                if (encontradas[j] == null && encontradas[j+1] != null) {
+                    encontradas[j] = encontradas[j+1]; encontradas[j+1] = null;
+                }
+            }
         }
         return encontradas; // @todo MODIFICAR PARA DEVOLVER LAS RECETAS ENCONTRADAS
     }
@@ -62,6 +70,8 @@ public class LibroDeRecetas {
                 }
             }
         } catch (IOException e) {
+            //Estuve a punto de añadir "⚠⚠" en el output de error pero no sé si tiene que ser esos mensajes
+            //palabra por palara y simplemente no estoy viendo dónde lo pone. -E
             System.out.println("ERROR AL CARGAR LA/S RECETA/S");
         } finally {
             if (entrada!=null) {
