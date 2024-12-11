@@ -57,10 +57,11 @@ public class InterfazUsuario {
         //Esta parte simplemente llama al method de LibroDeRecetas, que te las devuelve todas. -E
         System.out.println("Introduce el texto de la receta a buscar (-FIN- para volver): ");
         Scanner texto = new Scanner(System.in);
-        if (scanner.nextLine().equals("-FIN")) {
+        if (scanner.nextLine().equals("-FIN-")) {
             menuPrincipal(scanner);
+        } else {
+            recetas = new Receta[]{libroDeRecetas.buscarRecetaPorNombre(string.valueOf.scanner.nextLine())};
         }
-        recetas = new Receta[]{buscarRecetaPorNombre(texto)};
         //Una vez hecho eso, llamamos al method que te selecciona una de ellas en concreto. -E
         seleccionarReceta(scanner, recetas);
 
