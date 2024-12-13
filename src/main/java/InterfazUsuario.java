@@ -9,6 +9,10 @@ public class InterfazUsuario {
 
     public InterfazUsuario(int maxIngredientes, int maxInstrucciones, int maxRecetasEnLibro) {
         // Inicialización de la herramienta de recetas
+        this.maxIngredientes = maxIngredientes;
+        this.maxInstrucciones = maxInstrucciones;
+        libroDeRecetas = new LibroDeRecetas(maxRecetasEnLibro);
+        planificador = new PlanificadorSemanal();
     }
 
     public InterfazUsuario(int maxIngredientes, int maxInstrucciones, int maxRecetasEnLibro, String archivoRecetas) {
@@ -25,7 +29,6 @@ public class InterfazUsuario {
 
     private void menuPrincipal(Scanner scanner) {
         System.out.println(
-                //se podría escribir de manera más sucinta, pero verlo limpio es más cómodo, y optimizar un print tampoco es particularmente útil -E
                 """
                         --- Menú Principal ---
                         1. Agregar Receta
@@ -38,6 +41,7 @@ public class InterfazUsuario {
                         
                         >> Elige una opción: >>"""
 
+
         );
 
         // Muestra el menú principal y gestiona la entrada del usuario para dirigirlo a la opción seleccionada
@@ -45,6 +49,13 @@ public class InterfazUsuario {
 
     private void agregarReceta(Scanner scanner) {
         // Solicita al usuario los datos de la receta y la añade al libro de recetas
+        String nombreReceta = Utilidades.leerCadena(scanner, "Nombre de la receta: ");
+        Receta nuevaReceta = new Receta(nombreReceta, maxIngredientes, maxInstrucciones);
+        System.out.println("Introduce los ingredientes (una línea por ingrediente, escribe 'fin' para terminar):\n");
+        do {
+
+        }
+
     }
 
     private void consultarReceta(Scanner scanner) {
@@ -59,10 +70,14 @@ public class InterfazUsuario {
         if (scanner.nextLine().equals("-FIN-")) {
             menuPrincipal(scanner);
         } else {
-            String texto= scanner.nextLine();
+            String texto = scanner.nextLine();
             recetas = libroDeRecetas.buscarRecetaPorNombre(texto);
+            //if (recetas.length == 0 || recetas[0] == null) {
+            //    System.out.println("No hay recetas que coincidan con el texto introducido. Por favor inténtelo de nuevo.");
+            //}
+            //^ A añadir una vez el resto del programa esté listo y se compruebe que no rompe ningún test -E
         }
-        //Una vez hecho eso, llamamos al method que te selecciona una de ellas en concreto. -E
+        //Una vez hecho eso, devolvemos el method que te selecciona una de ellas en concreto. -E
         return seleccionarReceta(scanner, recetas);
         // @todo MODIFICAR PARA DEVOLVER LA RECETA SELECCIONADA
     }
