@@ -3,7 +3,7 @@ private String nombre;
 private int maxIngredientes;
 private int maxInstrucciones;
 private String[] ingredientes;
-private String[] instrucciones;
+private final String[] instrucciones;
 
     public Receta(String nombre, int maxIngredientes, int maxInstrucciones) {
         // Inicialización de la receta
@@ -42,7 +42,7 @@ private String[] instrucciones;
 
     public boolean agregarInstruccion(String instruccion) {
         // Añade una instrucción a la receta
-        for (int i=0; i<this.instrucciones.length; i++) {
+        for (int i=0; i<instrucciones.length; i++) {
             if (instrucciones[i]==null) {
                 instrucciones[i]=instruccion;
                 return true;

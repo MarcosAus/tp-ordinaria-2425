@@ -9,6 +9,9 @@ public class InterfazUsuario {
 
     public InterfazUsuario(int maxIngredientes, int maxInstrucciones, int maxRecetasEnLibro) {
         // Inicialización de la herramienta de recetas
+        this.maxIngredientes=maxIngredientes;
+        this.maxInstrucciones=maxInstrucciones;
+        recetas = new Receta[maxRecetasEnLibro];
     }
 
     public InterfazUsuario(int maxIngredientes, int maxInstrucciones, int maxRecetasEnLibro, String archivoRecetas) {
@@ -24,6 +27,7 @@ public class InterfazUsuario {
     }
 
     private void menuPrincipal(Scanner scanner) {
+        // Muestra el menú principal y gestiona la entrada del usuario para dirigirlo a la opción seleccionada
         System.out.println(
                 //se podría escribir de manera más sucinta, pero verlo limpio es más cómodo, y optimizar un print tampoco es particularmente útil -E
                 """
@@ -40,11 +44,37 @@ public class InterfazUsuario {
 
         );
 
-        // Muestra el menú principal y gestiona la entrada del usuario para dirigirlo a la opción seleccionada
     }
 
     private void agregarReceta(Scanner scanner) {
         // Solicita al usuario los datos de la receta y la añade al libro de recetas
+        System.out.print("Nombre de la receta: ");
+        String nombreReceta = scanner.nextLine();
+        Receta receta=new Receta(nombreReceta, maxIngredientes, maxInstrucciones);
+        System.out.println("Introduce los ingredientes (una línea por ingrediente, escribe 'fin' para terminar):");
+        int ingredienteAgregado=0;
+        do {
+            receta.agregarIngrediente(scanner.nextLine());
+            ingredienteAgregado++;
+        }while (!scanner.nextLine().equalsIgnoreCase("fin") && ingredienteAgregado<=maxIngredientes);
+        if (ingredienteAgregado==maxIngredientes) {
+            System.out.println("Ha llegado al número máximo de ingredientes enn su receta.");
+        }
+        System.out.println("Introduce las instrucciones (una línea por instrucción, escribe 'fin' para terminar):");
+        int instruccionAgregada=0;
+        do {
+            receta.agregarInstruccion(scanner.nextLine());
+            instruccionAgregada++;
+        } while(!scanner.nextLine().equalsIgnoreCase("fin") && instruccionAgregada<=maxInstrucciones);
+        if (instruccionAgregada==maxInstrucciones) {
+            System.out.println("Ha llegado al número máximo de instrucciones en su receta.");
+        }
+        if (libroDeRecetas.agregarReceta(receta)) {
+            System.out.println("¡Receta agregada exitosamente!");
+        } else {
+            System.out.println("No se pudo añadir la receta.");
+        }
+        menuPrincipal(scanner);   //no entiendo muy bien qué entrada tiene que tener menuPrincipal(), pero lo dejo así de momento
     }
 
     private void consultarReceta(Scanner scanner) {
