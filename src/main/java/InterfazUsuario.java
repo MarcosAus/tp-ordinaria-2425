@@ -17,7 +17,6 @@ public class InterfazUsuario {
 
     public InterfazUsuario(int maxIngredientes, int maxInstrucciones, int maxRecetasEnLibro, String archivoRecetas) {
         this(maxIngredientes, maxInstrucciones, maxRecetasEnLibro);
-
         // Cargar las recetas predefinidas al iniciar la aplicación
     }
 
@@ -52,9 +51,6 @@ public class InterfazUsuario {
         String nombreReceta = Utilidades.leerCadena(scanner, "Nombre de la receta: ");
         Receta nuevaReceta = new Receta(nombreReceta, maxIngredientes, maxInstrucciones);
         System.out.println("Introduce los ingredientes (una línea por ingrediente, escribe 'fin' para terminar):\n");
-        do {
-
-        }
 
     }
 
