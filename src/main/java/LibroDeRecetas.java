@@ -13,13 +13,17 @@ public class LibroDeRecetas {
     }
     public boolean agregarReceta(Receta receta) {
         // Añade una receta al libro de recetas
-        for (int i = 0; i<recetas.length; i++) {
-            if (recetas[i]==null) {
-                recetas[i]=receta;
-                return true;
+        boolean comprobanteAgregarReceta = false;
+        while (!comprobanteAgregarReceta) {
+            for (int i = 0; i < recetas.length; i++) {
+                if (recetas[i] == null) {
+                    recetas[i] = receta;
+                    comprobanteAgregarReceta = true;
+
+                }
             }
         }
-        return false; // @todo MODIFICAR PARA DEVOLVER SI SE HA AÑADIDO LA RECETA
+        return comprobanteAgregarReceta; // @todo MODIFICAR PARA DEVOLVER SI SE HA AÑADIDO LA RECETA
     }
 
     public Receta[] buscarRecetaPorNombre(String texto) {
@@ -31,9 +35,6 @@ public class LibroDeRecetas {
                 encontradas[posicionDeRecetasEncontradas] = recetas[i];
                 posicionDeRecetasEncontradas++;
             }
-            //El siguiente cacho simplemente cambia la posición de todos los [null] en el array de "encontradas" al final,
-            //para que no haya nulls en el medio del array por si necesitamos buscar la cantidad de matches que tiene o
-            //si ponemos un buscador que pare al encontrar el primer [null], que siga funcionando correctamente. -E
         }
         return encontradas; // @todo MODIFICAR PARA DEVOLVER LAS RECETAS ENCONTRADAS
     }
@@ -57,19 +58,21 @@ public class LibroDeRecetas {
 
     public boolean recetasCompletas() {
         // Comprueba si el libro de recetas está completo
-        for (int i = 0; i< recetas.length; i++) {
-            if (recetas[i]==null) {
-                return false;
+        boolean comprobanteRecetasCompletas = true;
+        for (Receta receta : recetas) {
+            if (receta != null) {
+                continue;
             }
+            comprobanteRecetasCompletas = false;
         }
-        return true; // @todo MODIFICAR PARA DEVOLVER SI ESTÁ COMPLETO
+        return comprobanteRecetasCompletas; // @todo MODIFICAR PARA DEVOLVER SI ESTÁ COMPLETO
     }
 
     public int numRecetas() {
         // Devuelve el número de recetas en el libro
         int numRecetas=0;
-        for (int i=0;i<recetas.length;i++) {
-            if (recetas[i]!=null) {
+        for (Receta receta : recetas) {
+            if (receta != null) {
                 numRecetas++;
             }
         }
