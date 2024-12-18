@@ -52,9 +52,6 @@ public class InterfazUsuario {
         String nombreReceta = Utilidades.leerCadena(scanner, "Nombre de la receta: ");
         Receta nuevaReceta = new Receta(nombreReceta, maxIngredientes, maxInstrucciones);
         System.out.println("Introduce los ingredientes (una línea por ingrediente, escribe 'fin' para terminar):\n");
-        do {
-
-        }
 
     }
 
