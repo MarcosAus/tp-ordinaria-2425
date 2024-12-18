@@ -52,7 +52,30 @@ public class LibroDeRecetas {
     }
 
     public void cargarRecetasDeArchivo(String nombreArchivo, int maxIngredientes, int maxInstrucciones) throws IOException {
-        // Carga las recetas desde un archivo de texto
+        // Carga las recetas desde un archivo de textoç
+        BufferedReader entrada=null;
+        String linea1, lineaWhile;
+        try {
+            entrada=new BufferedReader(new FileReader(nombreArchivo));
+            while ((linea1=entrada.readLine())!=null) {
+                Receta recetaImportada=new Receta(linea1, maxIngredientes,maxInstrucciones);
+                while (!(lineaWhile=entrada.readLine()).equals("INSTRUCCIONES")) {
+                    recetaImportada.agregarIngrediente(lineaWhile);
+                    recetaImportada.agregarIngrediente(entrada.readLine());
+                }
+                while (!(lineaWhile=entrada.readLine()).equals("-----")) {
+                    recetaImportada.agregarInstruccion(lineaWhile);
+                    recetaImportada.agregarInstruccion(entrada.readLine());
+                }
+                agregarReceta(recetaImportada);
+            }
+        } catch (IOException e) {
+            System.out.println("ERROR AL CARGAR LA RECETA");
+        } finally {
+            if (entrada!=null) {
+                entrada.close();
+            }
+        }
     }
 
     public boolean recetasCompletas() {
