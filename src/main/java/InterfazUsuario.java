@@ -80,7 +80,32 @@ public class InterfazUsuario {
 
     private void editarReceta(Scanner scanner, Receta seleccionada) {
         // Pantalla de edición de receta
+        seleccionada = buscarRecetaPorNombre(scanner);
+        System.out.println(seleccionada.toString());
+        System.out.println();
+        System.out.print("1. Añadir ingrediente\n2. Añadir instrucción\n3. Eliminar receta\n4. Volver\nElige una opción:");
+        int opcion=scanner.nextInt();
+        switch (opcion) {
+            case 1:
+                System.out.print("Introduce el ingrediente a añadir: ");
+                String ingredienteAniadido = scanner.nextLine();
+                seleccionada.agregarIngrediente(ingredienteAniadido);
+            case 2:
+                System.out.print("Introduce la instrucción a añadir: ");
+                String instruccionAniadida= scanner.nextLine();
+                seleccionada.agregarInstruccion(instruccionAniadida);
+            case 3:
+                System.out.print("Introduce la receta a eliminar: ");
+                libroDeRecetas.eliminarReceta(seleccionada);
+            case 4:
+                menuPrincipal(scanner);
+            default:
+                System.out.println("Opción no válida");
+                opcion=scanner.nextInt();
+
+        }
     }
+
 
     private Receta seleccionarReceta(Scanner scanner, Receta[] recetas) {
         // Muestra las recetas encontradas y solicita al usuario que elija una

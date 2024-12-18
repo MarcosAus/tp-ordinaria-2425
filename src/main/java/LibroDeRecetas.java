@@ -13,17 +13,13 @@ public class LibroDeRecetas {
     }
     public boolean agregarReceta(Receta receta) {
         // Añade una receta al libro de recetas
-        boolean comprobanteAgregarReceta = false;
-        while (!comprobanteAgregarReceta) {
-            for (int i = 0; i < recetas.length; i++) {
-                if (recetas[i] == null) {
-                    recetas[i] = receta;
-                    comprobanteAgregarReceta = true;
-
-                }
+        for (int i = 0; i<recetas.length; i++) {
+            if (recetas[i]==null) {
+                recetas[i]=receta;
+                return true;
             }
         }
-        return comprobanteAgregarReceta; // @todo MODIFICAR PARA DEVOLVER SI SE HA AÑADIDO LA RECETA
+        return false; // @todo MODIFICAR PARA DEVOLVER SI SE HA AÑADIDO LA RECETA
     }
 
     public Receta[] buscarRecetaPorNombre(String texto) {
@@ -35,6 +31,9 @@ public class LibroDeRecetas {
                 encontradas[posicionDeRecetasEncontradas] = recetas[i];
                 posicionDeRecetasEncontradas++;
             }
+            //El siguiente cacho simplemente cambia la posición de todos los [null] en el array de "encontradas" al final,
+            //para que no haya nulls en el medio del array por si necesitamos buscar la cantidad de matches que tiene o
+            //si ponemos un buscador que pare al encontrar el primer [null], que siga funcionando correctamente. -E
         }
         return encontradas; // @todo MODIFICAR PARA DEVOLVER LAS RECETAS ENCONTRADAS
     }
@@ -53,26 +52,47 @@ public class LibroDeRecetas {
     }
 
     public void cargarRecetasDeArchivo(String nombreArchivo, int maxIngredientes, int maxInstrucciones) throws IOException {
-        // Carga las recetas desde un archivo de texto
+        // Carga las recetas desde un archivo de textoç
+        BufferedReader entrada=null;
+        String linea1, lineaWhile;
+        try {
+            entrada=new BufferedReader(new FileReader(nombreArchivo));
+            while ((linea1=entrada.readLine())!=null) {
+                Receta recetaImportada=new Receta(linea1, maxIngredientes,maxInstrucciones);
+                while (!(lineaWhile=entrada.readLine()).equals("INSTRUCCIONES")) {
+                    recetaImportada.agregarIngrediente(lineaWhile);
+                    recetaImportada.agregarIngrediente(entrada.readLine());
+                }
+                while (!(lineaWhile=entrada.readLine()).equals("-----")) {
+                    recetaImportada.agregarInstruccion(lineaWhile);
+                    recetaImportada.agregarInstruccion(entrada.readLine());
+                }
+                agregarReceta(recetaImportada);
+            }
+        } catch (IOException e) {
+            System.out.println("ERROR AL CARGAR LA RECETA");
+        } finally {
+            if (entrada!=null) {
+                entrada.close();
+            }
+        }
     }
 
     public boolean recetasCompletas() {
         // Comprueba si el libro de recetas está completo
-        boolean comprobanteRecetasCompletas = true;
-        for (Receta receta : recetas) {
-            if (receta != null) {
-                continue;
+        for (int i = 0; i< recetas.length; i++) {
+            if (recetas[i]==null) {
+                return false;
             }
-            comprobanteRecetasCompletas = false;
         }
-        return comprobanteRecetasCompletas; // @todo MODIFICAR PARA DEVOLVER SI ESTÁ COMPLETO
+        return true; // @todo MODIFICAR PARA DEVOLVER SI ESTÁ COMPLETO
     }
 
     public int numRecetas() {
         // Devuelve el número de recetas en el libro
         int numRecetas=0;
-        for (Receta receta : recetas) {
-            if (receta != null) {
+        for (int i=0;i<recetas.length;i++) {
+            if (recetas[i]!=null) {
                 numRecetas++;
             }
         }

@@ -110,7 +110,7 @@ public class Receta {
      */
     public boolean instruccionesCompletas() {
         boolean comprobanteInstCompletas =true;
-        for (int i = 0; i<instrucciones.length && comprobanteInstCompletas; i++){
+        for (int i = 0; i<instrucciones.length; i++){
             if (instrucciones[i]==null){
                 comprobanteInstCompletas = false;
                 break;
