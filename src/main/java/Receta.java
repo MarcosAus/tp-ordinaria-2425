@@ -150,47 +150,30 @@ public class Receta {
      */
     @Override
     public String toString() {
-        String  string;
-        boolean fin = false;
-        string = "Receta: "+nombre+"\n";
-        string += "Ingredientes:\n";
-        for (int i = 0; i<ingredientes.length&&!fin; i++){
-            if (ingredientes[i]!=null){
-                string+="- "+ingredientes[i]+"\n";
-            } else {fin=true;}
+        StringBuilder recetaFormateada = new StringBuilder("Receta: " + getNombre() + "\n" + "Ingredientes:");
+        for (int i=0; i<numIngredientes(); i++) {
+            recetaFormateada.append("\n" + "- ").append(getIngredientes()[i]);
         }
-        fin=false;
-        string+= "Instrucciones:\n";
-        for (int i = 0; i<instrucciones.length&& !fin; i++){
-            if (instrucciones[i]!=null){
-                string+=(i+1)+". "+instrucciones[i]+"\n";
-            } else {fin=true;}
+        StringBuilder instrucciones= new StringBuilder("\nInstrucciones:\n");
+        for (int i=0; i<numInstrucciones(); i++) {
+            instrucciones.append((i + 1)).append(". ").append(getInstrucciones()[i]).append("\n");
         }
-        return string;
+        return recetaFormateada + instrucciones.toString();
+        // Devuelve una representación en forma de cadena de la recetaFormateada
     }
 
-    /**
-     * @return Devuelve el string en "Raw" de la receta
-     */
     public String toRawString() {
-        String  string;
-        boolean fin = false;
-        string = nombre+"\n";
-        for (int i = 0; i<ingredientes.length&&!fin; i++){
-            if (ingredientes[i]!=null){
-                string+=ingredientes[i]+"\n";
-            } else {fin=true;}
+        // Devuelve una representación en forma de cadena de la receta sin formato
+        StringBuilder receta= new StringBuilder(getNombre() + "\n");
+        for (int i=0; i<numIngredientes(); i++) {
+            receta.append(getIngredientes()[i]).append("\n");
         }
-        fin=false;
-        string+= "INSTRUCCIONES\n";
-        for (int i = 0; i<instrucciones.length&&!fin; i++){
-            if (instrucciones[i]!=null){
-                string+=instrucciones[i]+"\n";
-            } else {fin=true;}
+        StringBuilder instrucciones= new StringBuilder("INSTRUCCIONES" + "\n");
+        for (int i=0; i<numInstrucciones(); i++) {
+            instrucciones.append(getInstrucciones()[i]).append("\n");
         }
-        string+="-----\n";
-        return string;
-    }
+        return receta + instrucciones.toString() + "-----\n";
+}
 
     /**
      * @return devuelve el maximo de ingredientes de la receta
