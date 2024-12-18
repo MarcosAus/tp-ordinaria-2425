@@ -1,6 +1,9 @@
-
-import java.util.InputMismatchException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class InterfazUsuario {
     private LibroDeRecetas libroDeRecetas;
@@ -20,8 +23,16 @@ public class InterfazUsuario {
     public InterfazUsuario(int maxIngredientes, int maxInstrucciones, int maxRecetasEnLibro, String archivoRecetas) {
         this(maxIngredientes, maxInstrucciones, maxRecetasEnLibro);
         // Cargar las recetas predefinidas al iniciar la aplicación
+        this.maxIngredientes=maxIngredientes;
+        this.maxInstrucciones=maxInstrucciones;
+        libroDeRecetas=new LibroDeRecetas(maxRecetasEnLibro);
+        try {
+            libroDeRecetas.cargarRecetasDeArchivo(archivoRecetas, maxIngredientes, maxInstrucciones);
+            System.out.println("Recetas cargadas desde "+archivoRecetas);
+        }catch (IOException e) {
+            System.out.println("Error al cargar el archivo.");
+        }
     }
-
     public void iniciar() {
         Scanner scanner = new Scanner(System.in);
         menuPrincipal(scanner);
@@ -42,45 +53,52 @@ public class InterfazUsuario {
                         
                         >> Elige una opción: >>""");
 
-                try {
-                    int inputUser = Utilidades.leerNumero(scanner, "", 1, 7);
-                    switch (inputUser){
-                        case 1 -> agregarReceta(scanner);
-                        case 2 -> consultarReceta(scanner);
-                        case 3 -> planificarComidas(scanner);
-                        case 4 -> guardarRecetas(scanner);
-                        case 5 -> cargarRecetas(scanner);
-                        case 6 -> guardarPlanSemanal(scanner);
-                        case 7 -> {}
-                        default -> System.out.println("Has encontrado un error");
-                    }
-                } catch (InputMismatchException ex){
-                    System.out.println("Error. Por favor introduzca un número.");
-                    menuPrincipal(scanner);
+        try {
+            int inputUser = Utilidades.leerNumero(scanner, "", 1, 7);
+            switch (inputUser){
+                case 1 -> agregarReceta(scanner);
+                case 2 -> consultarReceta(scanner);
+                case 3 -> planificarComidas(scanner);
+                case 4 -> guardarRecetas(scanner);
+                case 5 -> cargarRecetas(scanner);
+                case 6 -> guardarPlanSemanal(scanner);
+                case 7 -> {}
+                default -> System.out.println("Has encontrado un error");
+            }
+        } catch (InputMismatchException ex){
+            System.out.println("Error. Por favor introduzca un número.");
+            menuPrincipal(scanner);
 
         }
         // Muestra el menú principal y gestiona la entrada del usuario para dirigirlo a la opción seleccionada
     }
 
+
     private void agregarReceta(Scanner scanner) {
         // Solicita al usuario los datos de la receta y la añade al libro de recetas
-        String nombreReceta = Utilidades.leerCadena(scanner, "Nombre de la receta: ");
+        String nombreReceta = Utilidades.leerCadena(scanner,"Nombre de la receta: " );
+        nombreReceta = scanner.nextLine();
+        /*He asignado a nombreReceta dos veces el scanner porque por alguna razón, con solo el primero el nombre se guarda como ""
+         mientras que ahora se guarda como debe ser -M
+         */
         Receta receta=new Receta(nombreReceta, maxIngredientes, maxInstrucciones);
         System.out.println("Introduce los ingredientes (una línea por ingrediente, escribe 'fin' para terminar):");
         int ingredienteAgregado=0;
+        String linea1=scanner.nextLine();
         do {
-            receta.agregarIngrediente(scanner.nextLine());
+            receta.agregarIngrediente(linea1);
             ingredienteAgregado++;
-        }while (!scanner.nextLine().equalsIgnoreCase("fin") && ingredienteAgregado<=maxIngredientes);
+        }while (!(linea1=scanner.nextLine()).equalsIgnoreCase("fin") && ingredienteAgregado<=maxIngredientes);
         if (ingredienteAgregado==maxIngredientes) {
             System.out.println("Ha llegado al número máximo de ingredientes en su receta.");
         }
         System.out.println("Introduce las instrucciones (una línea por instrucción, escribe 'fin' para terminar):");
         int instruccionAgregada=0;
+        String linea2= scanner.nextLine();;
         do {
-            receta.agregarInstruccion(scanner.nextLine());
+            receta.agregarInstruccion(linea2);
             instruccionAgregada++;
-        } while(!scanner.nextLine().equalsIgnoreCase("fin") && instruccionAgregada<=maxInstrucciones);
+        } while(!(linea2=scanner.nextLine()).equalsIgnoreCase("fin") && instruccionAgregada<=maxInstrucciones);
         if (instruccionAgregada==maxInstrucciones) {
             System.out.println("Ha llegado al número máximo de instrucciones en su receta.");
         }
@@ -89,12 +107,16 @@ public class InterfazUsuario {
         } else {
             System.out.println("No se pudo añadir la receta.");
         }
-        menuPrincipal(scanner);   //no entiendo muy bien qué entrada tiene que tener menuPrincipal(), pero lo dejo así de momento
-}
+        menuPrincipal(scanner);
+    }
 
     private void consultarReceta(Scanner scanner) {
         // Busca una receta por su nombre y activa el menú de edición
-
+         Receta seleccionada = buscarRecetaPorNombre(scanner);
+        System.out.println(seleccionada.toString());
+        System.out.println();
+        editarReceta(scanner, seleccionada);
+        menuPrincipal(scanner);
     }
     private Receta buscarRecetaPorNombre(Scanner scanner) {
         // Solicita al usuario un texto para buscar y seleccionar una receta por su nombre
@@ -118,37 +140,34 @@ public class InterfazUsuario {
 
     private void editarReceta(Scanner scanner, Receta seleccionada) {
         // Pantalla de edición de receta
-        seleccionada = buscarRecetaPorNombre(scanner);
-        System.out.println(seleccionada.toString());
-        System.out.println();
-        System.out.print("1. Añadir ingrediente\n2. Añadir instrucción\n3. Eliminar receta\n4. Volver\nElige una opción:");
-        int opcion=scanner.nextInt();
-        switch (opcion) {
-            case 1:
-                System.out.print("Introduce el ingrediente a añadir: ");
-                String ingredienteAniadido = scanner.nextLine();
-                seleccionada.agregarIngrediente(ingredienteAniadido);
-            case 2:
-                System.out.print("Introduce la instrucción a añadir: ");
-                String instruccionAniadida= scanner.nextLine();
-                seleccionada.agregarInstruccion(instruccionAniadida);
-            case 3:
-                System.out.print("Introduce la receta a eliminar: ");
-                libroDeRecetas.eliminarReceta(seleccionada);
-            case 4:
-                menuPrincipal(scanner);
-            default:
-                System.out.println("Opción no válida");
-                editarReceta(scanner, seleccionada);
+        int opcion=Utilidades.leerNumero(scanner,"1. Añadir ingrediente\n2. Añadir instrucción\n3. Eliminar receta\n4. Volver\nElige una opción:", 1, 7);
+        scanner.nextLine();
+            switch (opcion) {
+                case 1:
+                    System.out.print("Introduce el ingrediente a añadir: ");
+                    String ingredienteAniadido = scanner.nextLine();
+                    seleccionada.agregarIngrediente(ingredienteAniadido);
+                    break;
+                case 2:
+                    System.out.print("Introduce la instrucción a añadir: ");
+                    String instruccionAniadida = scanner.nextLine();
+                    seleccionada.agregarInstruccion(instruccionAniadida);
+                    break;
+                case 3:
+                    libroDeRecetas.eliminarReceta(seleccionada);
+                    System.out.println("Receta eliminada.");
+                    break;
+                case 4:
+                    menuPrincipal(scanner);
+            }
+        }
 
-}
-}
 
     private Receta seleccionarReceta(Scanner scanner, Receta[] recetas) {
         // Muestra las recetas encontradas y solicita al usuario que elija una
         int cantidadMatches = 1;
         System.out.println("Recetas encontradas:");
-        for (int i = 0; i<=recetas.length; i++) {
+        for (int i = 0; i<recetas.length; i++) {
             if (recetas[i]!= null) {
                 System.out.println(cantidadMatches + ". " + recetas[i].getNombre());
                 cantidadMatches++;
@@ -164,15 +183,34 @@ public class InterfazUsuario {
 
     private void planificarComidas(Scanner scanner) {
         // Inicia el proceso de planificación de comidas
-
     }
 
     private void guardarRecetas(Scanner scanner) {
         // Solicita al usuario un nombre de archivo y guarda las recetas en ese archivo
+        scanner.nextLine();
+        String nombreArchivo=Utilidades.leerCadena(scanner, "Introduce el nombre del archivo donde guardar las recetas: ");
+        try {
+            libroDeRecetas.guardarRecetasEnArchivo(nombreArchivo);
+            System.out.println("Recetas guardadas en "+nombreArchivo);
+        }catch(IOException e) {
+            System.out.println("Error al guardar el archivo.");
+        } finally {
+            menuPrincipal(scanner);
+        }
     }
 
     private void cargarRecetas(Scanner scanner) {
         // Solicita al usuario un nombre de archivo y carga las recetas desde ese archivo
+        scanner.nextLine();
+        String nombreArchivo=Utilidades.leerCadena(scanner, "Introduce la ruta del archivo de donde cargar las recetas: )");
+        try {
+            libroDeRecetas.cargarRecetasDeArchivo(nombreArchivo, maxIngredientes, maxInstrucciones);
+            System.out.println("Recetas cargadas de "+nombreArchivo);
+        }catch (IOException e) {
+            System.out.println("Error al cargar el archivo.");
+        }finally {
+            menuPrincipal(scanner);
+        }
     }
 
     private void guardarPlanSemanal(Scanner scanner) {
