@@ -128,9 +128,11 @@ public class InterfazUsuario {
         } else {
             String texto = scanner.nextLine();
             recetas = libroDeRecetas.buscarRecetaPorNombre(texto);
-            //if (recetas.length == 0 || recetas[0] == null) {
-            //    System.out.println("No hay recetas que coincidan con el texto introducido. Por favor inténtelo de nuevo.");
-            //}
+            // hay que modificar esta parte para que contemple qué pasa cuando no hay recetas econtradas -M
+            if (recetas.length == 0 || recetas[0] == null) {
+                System.out.println("No hay recetas que coincidan con el texto introducido. Por favor inténtelo de nuevo.");
+                menuPrincipal(scanner);
+            }
             //^ A añadir una vez el resto del programa esté listo y se compruebe que no rompe ningún test -E
         }
         //Una vez hecho eso, devolvemos el method que te selecciona una de ellas en concreto. -E
@@ -183,6 +185,7 @@ public class InterfazUsuario {
 
     private void planificarComidas(Scanner scanner) {
         // Inicia el proceso de planificación de comidas
+
     }
 
     private void guardarRecetas(Scanner scanner) {
