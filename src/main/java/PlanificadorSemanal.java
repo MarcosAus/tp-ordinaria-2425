@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 
 public class PlanificadorSemanal {
     private String[][] contenidoPlanificador = new String[7][2];
+    //Usar un Array 2d es francamente innecesario, pero me ayuda a verlo con mayor claridad al escribir el código -E
 
     PlanificadorSemanal() {
         // Inicialización del planificador semanal
@@ -27,10 +28,11 @@ public class PlanificadorSemanal {
 
         StringBuilder output = new StringBuilder();
         int totalDePosiciones;
-        int maxLongitud = 11;
+        int maxLongitud = 11; // 11 es lo que mide el bloque de 1 día en el expected vacío, que es la cantidad mínima que puede llegar a medir la posición -E
         int[] longitudInput = new int[7];
         int[] longitudDia = new int[7];
 
+        //este bloque determina la longitud de las líneas
         for (int y = 0; y < 7; y++) {
             longitudDia[y] = contenidoPlanificador[y][0].length();
             if (contenidoPlanificador[y][1] != null) {
@@ -41,9 +43,9 @@ public class PlanificadorSemanal {
             }
         }
 
-        totalDePosiciones = 7*maxLongitud;
+        totalDePosiciones = 7*maxLongitud; // 7 veces por las siete posiciones por los siete días de la semana -E
 
-        for (int u = 0; u < totalDePosiciones; u++) {
+        for (int u = 0; u < totalDePosiciones; u++) { //este bloque es la línea 1. Añade una cantidad variable de "-"s en función de la longitud de las líneas de texto
             if (u == (totalDePosiciones-1)) {
                 output.insert(u,"-\n");
             }else{
@@ -51,7 +53,7 @@ public class PlanificadorSemanal {
             }
         }
 
-        for (int y = 0; y < 7; y++) {
+        for (int y = 0; y < 7; y++) { //este bloque printea los días de la semana, separados en bloques del tamaño de día o receta más largo de todos, más un espacio al princpio y otro al final -E
             output.append(" ").append(contenidoPlanificador[y][0]);
             for (int w = 0; w < ((maxLongitud - (longitudDia[y] + 1))); w++) {
                 output.append(" ");
@@ -61,7 +63,7 @@ public class PlanificadorSemanal {
             }
         }
 
-        for (int u = 0; u < totalDePosiciones; u++) {
+        for (int u = 0; u < totalDePosiciones; u++) { //prácticamente lo mismo que la línea nº1, con el caveat de que al estar en medio también necesita un \n al final
             if (u == (totalDePosiciones-1)) {
                 output.append("-\n");
             }else if (u == 0) {
@@ -71,7 +73,7 @@ public class PlanificadorSemanal {
             }
         }
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 7; i++) { //igual que la línea 2, pero al ser inputs de longitud variable se complica un poco más
             if (contenidoPlanificador[i][1] != null) {
                 output.append(" ").append(contenidoPlanificador[i][1]);
             } else{
@@ -85,7 +87,7 @@ public class PlanificadorSemanal {
             }
         }
 
-        for (int u = 0; u < totalDePosiciones; u++) {
+        for (int u = 0; u < totalDePosiciones; u++) { //igual que las líneas 1 y 3
             if (u == (totalDePosiciones-1)) {
                 output.append("-\n");
             }else if (u == 0) {
@@ -95,7 +97,7 @@ public class PlanificadorSemanal {
             }
         }
 
-        output.append("\n");
+        output.append("\n"); //Esto aquí porque los expected acaban con dos líneas en blanco en vez de una -E
 
         return String.valueOf(output);
     }

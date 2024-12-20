@@ -24,7 +24,7 @@ public class LibroDeRecetas {
                 return true;
             }
         }
-        return false; // @todo MODIFICAR PARA DEVOLVER SI SE HA AÑADIDO LA RECETA
+        return false;
     }
 
     public Receta[] buscarRecetaPorNombre(String texto) {
@@ -37,7 +37,7 @@ public class LibroDeRecetas {
                 posicionDeRecetasEncontradas++;
             }
         }
-        return encontradas; // @todo MODIFICAR PARA DEVOLVER LAS RECETAS ENCONTRADAS
+        return encontradas;
     }
 
     public void guardarRecetasEnArchivo(String nombreArchivo) throws IOException {
@@ -54,7 +54,7 @@ public class LibroDeRecetas {
     }
 
     public void cargarRecetasDeArchivo(String nombreArchivo, int maxIngredientes, int maxInstrucciones) throws IOException {
-        // Carga las recetas desde un archivo de textoç
+        // Carga las recetas desde un archivo de texto
         String linea1, lineaWhile;
         try (BufferedReader entrada = new BufferedReader(new FileReader(nombreArchivo))) {
             while ((linea1 = entrada.readLine()) != null) {
@@ -74,12 +74,13 @@ public class LibroDeRecetas {
 
     public boolean recetasCompletas() {
         // Comprueba si el libro de recetas está completo
+        boolean varTemp = true;
         for (int i = 0; i< recetas.length; i++) {
             if (recetas[i]==null) {
-                return false;
+                varTemp = false;
             }
         }
-        return true; // @todo MODIFICAR PARA DEVOLVER SI ESTÁ COMPLETO
+        return varTemp;
     }
 
     public int numRecetas() {
@@ -90,7 +91,7 @@ public class LibroDeRecetas {
                 numRecetas++;
             }
         }
-        return numRecetas; // @todo MODIFICAR PARA DEVOLVER EL NÚMERO DE RECETAS
+        return numRecetas; //
     }
 
     public void eliminarReceta(Receta seleccionada) {

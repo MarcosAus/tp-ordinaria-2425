@@ -97,11 +97,7 @@ public class Receta {
                 fin=true;
             }
         }
-        if (fin){
-            return false;
-        } else {
-            return true;
-        }
+        return !fin;
     }
 
     /**
