@@ -29,7 +29,6 @@ public class Utilidades {
     }
 
     public static int leerDiaDeLaSemana(Scanner teclado, String mensaje) {
-
         // Muestra un mensaje, lee un día de la semana por teclado (L, M, X, J, V, S, D) y devuelve su posición
         // dentro de la semana (0-6)
         System.out.println(mensaje);
