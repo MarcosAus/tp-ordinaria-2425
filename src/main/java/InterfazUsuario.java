@@ -141,7 +141,6 @@ public class InterfazUsuario {
         }
         //Una vez hecho eso, devolvemos el method que te selecciona una de ellas en concreto. -E
         return seleccionarReceta(scanner, recetas);
-        // @todo MODIFICAR PARA DEVOLVER LA RECETA SELECCIONADA
     }
 
     private void editarReceta(Scanner scanner, Receta seleccionada) {
@@ -173,9 +172,9 @@ public class InterfazUsuario {
         // Muestra las recetas encontradas y solicita al usuario que elija una
         int cantidadMatches = 1;
         System.out.println("Recetas encontradas:");
-        for (int i = 0; i<recetas.length; i++) {
-            if (recetas[i]!= null) {
-                System.out.println(cantidadMatches + ". " + recetas[i].getNombre());
+        for (Receta receta : recetas) {
+            if (receta != null) {
+                System.out.println(cantidadMatches + ". " + receta.getNombre());
                 cantidadMatches++;
             }
         }
