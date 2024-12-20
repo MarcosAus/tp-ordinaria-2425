@@ -2,6 +2,14 @@ import java.io.*;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
+/**
+ * La clase InterfazUsuario tiene cinco atributos privados:
+ * - libroDeRecetas (objeto de la clase LibroDeRecetas que contiene las recetas)
+ * - planificador (objeto de la clase PlanificadorSemanal)
+ * - maxIngredientes (número máximo de ingredientes en la receta)
+ * - maxInstrucciones (número máximo de instrucciones en la receta)
+ * - recetas (un array de Recetas)
+ */
 public class InterfazUsuario {
     private LibroDeRecetas libroDeRecetas;
     private PlanificadorSemanal planificador;
@@ -9,14 +17,26 @@ public class InterfazUsuario {
     private int maxInstrucciones;
     private Receta[] recetas;
 
+    /**
+     * Constructor de InterfazUsuario (si no se introduce el nombre del archivo que va a cargarse)
+     * @param maxIngredientes inicializa el número máximo de ingredientes
+     * @param maxInstrucciones inicializa el número máximo de instrucciones
+     * @param maxRecetasEnLibro inicializa el número máximo de recetas en el libro de recetas
+     */
     public InterfazUsuario(int maxIngredientes, int maxInstrucciones, int maxRecetasEnLibro) {
-        // Inicialización de la herramienta de recetas
         this.maxIngredientes = maxIngredientes;
         this.maxInstrucciones = maxInstrucciones;
         libroDeRecetas = new LibroDeRecetas(maxRecetasEnLibro);
         planificador = new PlanificadorSemanal();
     }
 
+    /**
+     * Constructor de InterfazUsuario (si se introduce el nombre del archivo que va a cargarse)
+     * @param maxIngredientes inicializa el número máximo de ingredientes
+     * @param maxInstrucciones inicializa el número máximo de instrucciones
+     * @param maxRecetasEnLibro inicializa el número máximo de recetas en el libro de recetas
+     * @param archivoRecetas cargra el archivo de dicho nombre
+     */
     public InterfazUsuario(int maxIngredientes, int maxInstrucciones, int maxRecetasEnLibro, String archivoRecetas) {
         this(maxIngredientes, maxInstrucciones, maxRecetasEnLibro);
         // Cargar las recetas predefinidas al iniciar la aplicación
@@ -30,12 +50,20 @@ public class InterfazUsuario {
             System.out.println("Error al cargar el archivo.");
         }
     }
+
+    /**
+     * Función que inicia la interfaz del usuario
+     */
     public void iniciar() {
         Scanner scanner = new Scanner(System.in);
         menuPrincipal(scanner);
         scanner.close();
     }
 
+    /**
+     * Función que muestra el menú principal de opciones que tiene el usuario
+     * @param scanner objeto de la clase Scanner que va a leer las etradas del usuario por teclado
+     */
     private void menuPrincipal(Scanner scanner) {
         System.out.println(
                 """
@@ -59,24 +87,23 @@ public class InterfazUsuario {
                 case 4 -> guardarRecetas(scanner);
                 case 5 -> cargarRecetas(scanner);
                 case 6 -> guardarPlanSemanal(scanner);
-                case 7 -> {
-                }
+                case 7 -> {}
                 default -> System.out.println("Has encontrado un error");
             }
         }catch(InputMismatchException ex) {
             System.out.println("Entrada no válida");
         }
-        // Muestra el menú principal y gestiona la entrada del usuario para dirigirlo a la opción seleccionada
-        }
+    }
 
 
+    /**
+     * Función que agrega una receta al lirbo de recetas
+     * @param scanner objeto de la clase Scanner que va a leer las etradas del usuario por teclado
+     */
     private void agregarReceta(Scanner scanner) {
         // Solicita al usuario los datos de la receta y la añade al libro de recetas
         String nombreReceta = Utilidades.leerCadena(scanner,"Nombre de la receta: " );
-        nombreReceta = scanner.nextLine();
-        /*He asignado a nombreReceta dos veces el scanner porque por alguna razón, con solo el primero el nombre se guarda como ""
-         mientras que ahora se guarda como debe ser -M
-         */
+        nombreReceta = scanner.nextLine(); //NOTA: en varias líneas del código, se hacen dos veces el scanner necesario, ya que sin hacerlo así el scanner no consigue leer la entrada del usuario -Marcos
         Receta receta=new Receta(nombreReceta, maxIngredientes, maxInstrucciones);
         System.out.println("Introduce los ingredientes (una línea por ingrediente, escribe 'fin' para terminar):");
         int ingredienteAgregado=0;
@@ -106,8 +133,11 @@ public class InterfazUsuario {
         menuPrincipal(scanner);
     }
 
+    /**
+     * Función busca una receta por su nombre y activa el menú de edición
+     * @param scanner objeto de la clase Scanner que va a leer las etradas del usuario por teclado
+     */
     private void consultarReceta(Scanner scanner) {
-        // Busca una receta por su nombre y activa el menú de edición
          Receta seleccionada = buscarRecetaPorNombre(scanner);
          if (seleccionada==null) {
              return;
@@ -117,10 +147,13 @@ public class InterfazUsuario {
         editarReceta(scanner, seleccionada);
         menuPrincipal(scanner);
     }
-    private Receta buscarRecetaPorNombre(Scanner scanner) {
-        // Solicita al usuario un texto para buscar y seleccionar una receta por su nombre
 
-        //Esta parte simplemente llama al method de LibroDeRecetas, que te las devuelve todas. -E
+    /**
+     * Solicita al usuario un texto para buscar y seleccionar una receta por su nombre
+     * @param scanner objeto de la clase Scanner que va a leer las etradas del usuario por teclado
+     * @return devuelve la receta seleccionada tras buscarla por su nombre
+     */
+    private Receta buscarRecetaPorNombre(Scanner scanner) {
         System.out.println("Introduce el texto de la receta a buscar (-FIN- para volver): ");
         if (scanner.nextLine().equals("-FIN-")) {
             menuPrincipal(scanner);
@@ -140,8 +173,12 @@ public class InterfazUsuario {
         return seleccionarReceta(scanner, recetas);
     }
 
+    /**
+     * Función que permite agregar ingredientes e instrucciones a la receta, o eliminarla por completo
+     * @param scanner objeto de la clase Scanner que va a leer las etradas del usuario por teclado
+     * @param seleccionada receta que ha sido seleccionada para ser editada
+     */
     private void editarReceta(Scanner scanner, Receta seleccionada) {
-        // Pantalla de edición de receta
         int opcion=Utilidades.leerNumero(scanner,"1. Añadir ingrediente\n2. Añadir instrucción\n3. Eliminar receta\n4. Volver\nElige una opción:", 1, 7);
         scanner.nextLine();
             switch (opcion) {
@@ -164,7 +201,12 @@ public class InterfazUsuario {
             }
         }
 
-
+    /**
+     * Función que permite seleccionar una receta tras escribir el número de la receta deseada
+     * @param scanner objeto de la clase Scanner que va a leer las etradas del usuario por teclado
+     * @param recetas array de recetas
+     * @return devuelve la receta seleccionada
+     */
     private Receta seleccionarReceta(Scanner scanner, Receta[] recetas) {
         // Muestra las recetas encontradas y solicita al usuario que elija una
         int cantidadMatches = 1;
@@ -183,8 +225,11 @@ public class InterfazUsuario {
         return recetas[seleccion - 1];
     }
 
+    /**
+     * Función que planifica las comidas en una semana
+     * @param scanner objeto de la clase Scanner que va a leer las etradas del usuario por teclado
+     */
     private void planificarComidas(Scanner scanner) {
-        // Inicia el proceso de planificación de comidas
         Receta receta;
         try {
             System.out.println("Planificación de comidas para la semana:");
@@ -202,6 +247,10 @@ public class InterfazUsuario {
         }
     }
 
+    /**
+     * Función que permite guardar las recetas en un archivo de texto
+     * @param scanner objeto de la clase Scanner que va a leer las etradas del usuario por teclado
+     */
     private void guardarRecetas(Scanner scanner) {
         // Solicita al usuario un nombre de archivo y guarda las recetas en ese archivo
         scanner.nextLine();
@@ -216,6 +265,10 @@ public class InterfazUsuario {
         }
     }
 
+    /**
+     * Función que permite cargar las recetas guardadas previamente en un archivo de texto
+     * @param scanner objeto de la clase Scanner que va a leer las etradas del usuario por teclado
+     */
     private void cargarRecetas(Scanner scanner) {
         // Solicita al usuario un nombre de archivo y carga las recetas desde ese archivo
         scanner.nextLine();
@@ -230,6 +283,10 @@ public class InterfazUsuario {
         }
     }
 
+    /**
+     * Función que permite guardar el plan semanal creado en un archivo de texto
+     * @param scanner objeto de la clase Scanner que va a leer las etradas del usuario por teclado
+     */
     private void guardarPlanSemanal(Scanner scanner) {
         // Solicita al usuario un nombre de archivo y guarda el plan semanal en ese archivo
         scanner.nextLine();

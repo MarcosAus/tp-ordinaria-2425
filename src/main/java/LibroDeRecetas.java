@@ -17,18 +17,16 @@ public class LibroDeRecetas {
      * @param maxRecetasEnLibro el número máximo deseado de recetas que va a tener el libro
      */
     public LibroDeRecetas(int maxRecetasEnLibro) {
-        // Inicialización del libro de recetas
         recetas = new Receta[maxRecetasEnLibro];
         this.maxRecetasEnLibro = maxRecetasEnLibro;
     }
 
     /**
-     *
+     * Agrega una receta al libro de recetas
      * @param receta es la receta que se desea agregar al libro de recetas
      * @return "true" si se ha podido agregar, y "false" en caso contrario
      */
     public boolean agregarReceta(Receta receta) {
-        // Añade una receta al libro de recetas
         for (int i = 0; i<recetas.length; i++) {
             if (recetas[i]==null) {
                 recetas[i]=receta;
@@ -39,14 +37,13 @@ public class LibroDeRecetas {
     }
 
     /**
-     *
+     * Busca los nombres de las recetas parecidos al texto introducido.
      * @param texto cadena de texto que se comparará con el nombre de todas las recetas existentes en el libro
-     * @return
+     * @return devuelve las recetas que haya encontrado que coincidan con el texto introudicido
      */
     public Receta[] buscarRecetaPorNombre(String texto) {
         Receta[] encontradas=new Receta[recetas.length];
         int posicionDeRecetasEncontradas=0;
-        // Busca recetas por su nombre y devuelve todas las encontradas
         for (Receta receta : recetas) {
             if (receta != null && receta.getNombre().toLowerCase().contains(texto.toLowerCase())) {
                 encontradas[posicionDeRecetasEncontradas] = receta;
@@ -56,8 +53,12 @@ public class LibroDeRecetas {
         return encontradas;
     }
 
+    /**
+     * Guarda las recetas creadas en un arhcivo de texto
+     * @param nombreArchivo el nombre del archivo donde se van a guardar las recetas
+     * @throws IOException posible excepción al ejecutarse la función
+     */
     public void guardarRecetasEnArchivo(String nombreArchivo) throws IOException {
-        // Guarda las recetas en un archivo de texto
         try (PrintWriter salida = new PrintWriter(new FileWriter(nombreArchivo))) {
             for (int i = 0; i < maxRecetasEnLibro; i++) {
                 if (recetas[i] != null) {
@@ -69,6 +70,13 @@ public class LibroDeRecetas {
         }
     }
 
+    /**
+     * Carga las recetas guardadas en un archivo de texto al libro de recetas
+     * @param nombreArchivo nombre del archvio donde se guardaron las recetas
+     * @param maxIngredientes el número máximo de ingredientes en la receta
+     * @param maxInstrucciones el número máximo de instrucciones en la receta
+     * @throws IOException posible excepción al ejecutarse la función
+     */
     public void cargarRecetasDeArchivo(String nombreArchivo, int maxIngredientes, int maxInstrucciones) throws IOException {
         // Carga las recetas desde un archivo de texto
         String linea1, lineaWhile;
@@ -88,30 +96,40 @@ public class LibroDeRecetas {
         }
     }
 
+    /**
+     * Determina si se ha llegado al número máximo de recetas en el libro de recetas
+     * @return "true" si el libro está completo, "false" en caso contrario
+     */
     public boolean recetasCompletas() {
-        // Comprueba si el libro de recetas está completo
         boolean varTemp = true;
-        for (int i = 0; i< recetas.length; i++) {
-            if (recetas[i]==null) {
+        for (Receta receta : recetas) {
+            if (receta == null) {
                 varTemp = false;
+                break;
             }
         }
         return varTemp;
     }
 
+    /**
+     *
+     * @return Devuelve el número de recetas en el libro
+     */
     public int numRecetas() {
-        // Devuelve el número de recetas en el libro
         int numRecetas=0;
-        for (int i=0;i<recetas.length;i++) {
-            if (recetas[i]!=null) {
+        for (Receta receta : recetas) {
+            if (receta != null) {
                 numRecetas++;
             }
         }
         return numRecetas; //
     }
 
+    /**
+     * Elimina una receta del libro de recetas
+     * @param seleccionada receta que va a ser eliminada
+     */
     public void eliminarReceta(Receta seleccionada) {
-        // Elimina una receta del libro de recetas
         for (int i =0;i<recetas.length;i++) {
             if (recetas[i]==seleccionada) {
                 recetas[i]=null;

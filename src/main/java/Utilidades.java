@@ -5,17 +5,18 @@ import java.util.Scanner;
  */
 public class Utilidades {
     /**
+     * Lee una cadena de texto introducida por el usuario, mostrando el mensaje antes
      * @param teclado el nombre del objeto del Scanner
      * @param s el mensaje que se imprimirá al ejecutar la función
      * @return devuelve la cadena que el usuario ha introducido por el teclado
      */
     public static String leerCadena(Scanner teclado, String s) {
-        // Muestra un mensaje y lee una cadena por teclado
         System.out.println(s);
         return teclado.nextLine();
     }
 
     /**
+     * Lee un número introducido por el usuario, mostrando el mensaje antes
      * @param teclado el nombre del objeto del Scanner
      * @param mensaje el mensaje que se imprimirá al ejecutar la función
      * @param minimo el número mínimo que el usuario puede introducir
@@ -41,14 +42,13 @@ public class Utilidades {
     }
 
     /**
+     * Lee un día de la semana escrito por el ususario y devuelve su posición
      * @param teclado el nombre del objeto del Scanner
      * @param mensaje el mensaje que se imprimirá al ejecutar la función
      * @return devuelve la posición del día de la semana introducido (obtenido gracias a diaSemanaPosicion)
      */
 
     public static int leerDiaDeLaSemana(Scanner teclado, String mensaje) {
-        // Muestra un mensaje, lee un día de la semana por teclado (L, M, X, J, V, S, D) y devuelve su posición
-        // dentro de la semana (0-6)
         System.out.println(mensaje);
         int posicion=0;
         try {
@@ -69,6 +69,7 @@ public class Utilidades {
     }
 
     /**
+     * Devuelve la posición del día que le llegue como string
      * @param dia dia de la semana
      * @return devuelve la posición del día de la semana introducido
      */
@@ -92,6 +93,7 @@ public class Utilidades {
     }
 
     /**
+     * Devuelve el día de la semana según su posición
      * @param pos posición del día de la semana
      * @return un string que es el día de la semana correspondiente
      */
@@ -112,8 +114,6 @@ public class Utilidades {
             System.out.println("Argumento no permitido, inténtelo de nuevo");
             posicionADiaSemana(pos);
         }
-        // Devuelve el día de la semana (Lunes, Martes, Miércoles, Jueves, Viernes, Sábado, Domingo)
-        // correspondiente a una posición dentro de la semana (0-6)
     return salida;
     }
 }

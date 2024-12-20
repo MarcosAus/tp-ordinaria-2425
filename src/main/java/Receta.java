@@ -14,7 +14,8 @@ public class Receta {
     private int maxInstrucciones;
 
     /**
-     * @param nombre inicializa el constructor del atributo nombre
+     * Constructor de Receta
+     * @param nombre inicializa el constructor del atributo "nombre"
      * @param maxIngredientes inicializa el constructor del atributo de ingredientes marcando su maximo
      * @param maxInstrucciones inicializa el constructor del atributo de instrucciones marcando su maximo
      */
@@ -27,33 +28,34 @@ public class Receta {
     }
 
     /**
+     * Getter del nombre de la receta
      * @return devuelve un String con el nombre de la receta
-     * La funcion es un getter del String nombre
      */
     public String getNombre() {
         return this.nombre;
     }
 
     /**
+     * Getter de los ingredientes de la receta
      * @return devuelve un array de String con la lista de ingredientes
-     * La funcion es un getter del String listaIngredientes
      */
     public String[] getIngredientes() {
         return this.ingredientes;
     }
 
     /**
-     * @return devuelve un array de String con la lista de instrucciones de la receta
      * La funcion es un getter del String listaInstruccciones
+     * Getter de las instrucciones de la receta
+     * @return devuelve un array de String con la lista de instrucciones de la receta
      */
     public String[] getInstrucciones() {
         return this.instrucciones;
     }
 
     /**
+     * La funcion agregarIngredientes añade ingredientes en el array listaIngredientes
      * @param ingrediente es el ingrediente a introducir
      * @return devuelve true si ha sido capaz de introducir el ingrediente en el array listaIngredientes
-     * La funcion agregarIngredientes añade ingredientes en el array listaIngredientes
      */
     public boolean agregarIngrediente(String ingrediente) {
         boolean libre= true;
@@ -70,9 +72,9 @@ public class Receta {
     }
 
     /**
+     * Agrega una instruccion a la receta
      * @param instruccion es la instruccion a añadir
      * @return duelvelve true si se ha añadido la instruccion, devuelve false si no
-     * la funcion agregarInstruccion añade instrucciones en el array listaInstrucciones
      */
     public boolean agregarInstruccion(String instruccion) {
         boolean libre= true;
@@ -89,6 +91,7 @@ public class Receta {
     }
 
     /**
+     * Determina si se ha llegado al número máximo de ingredientes
      * @return devuelve true si la receta contiene el numero maximo de ingredientes,
      * en caso contrario duevuelve falso
      */
@@ -103,13 +106,14 @@ public class Receta {
     }
 
     /**
-     * @return devuelve true si las instrucciones estan completas, en caso contrario
+     * Determina si se ha llegado al número máximo de instrucciones
+     * @return devuelve true si las instrucciones están completas, en caso contrario
      * devuelve false
      */
     public boolean instruccionesCompletas() {
         boolean comprobanteInstCompletas =true;
-        for (int i = 0; i<instrucciones.length; i++){
-            if (instrucciones[i]==null){
+        for (String instruccione : instrucciones) {
+            if (instruccione == null) {
                 comprobanteInstCompletas = false;
                 break;
             }
@@ -122,9 +126,9 @@ public class Receta {
      */
     public int numIngredientes() {
         int numIngredientes=0;
-        for (int i=0; i<ingredientes.length; i++){
-            if (ingredientes[i]!=null){
-                numIngredientes+=1;
+        for (String ingrediente : ingredientes) {
+            if (ingrediente != null) {
+                numIngredientes += 1;
             }
         }
         return  numIngredientes;
@@ -135,15 +139,16 @@ public class Receta {
      */
     public int numInstrucciones() {
         int numInstrucciones=0;
-        for (int i=0; i<instrucciones.length; i++){
-            if (instrucciones[i]!=null){
-                numInstrucciones+=1;
+        for (String instruccione : instrucciones) {
+            if (instruccione != null) {
+                numInstrucciones += 1;
             }
         }
         return  numInstrucciones;
     }
 
     /**
+     * Función que pasa a string la receta, formateada
      * @return devuelve un string con el nombre, ingredientes e instrucciones de la receta en cuestion
      */
     @Override
@@ -157,11 +162,13 @@ public class Receta {
             instrucciones.append((i + 1)).append(". ").append(getInstrucciones()[i]).append("\n");
         }
         return recetaFormateada + instrucciones.toString();
-        // Devuelve una representación en forma de cadena de la recetaFormateada
     }
 
+    /**
+     * @return devuelve lo mismo que el toString(), salvo que sin formato
+     */
+
     public String toRawString() {
-        // Devuelve una representación en forma de cadena de la receta sin formato
         StringBuilder receta= new StringBuilder(getNombre() + "\n");
         for (int i=0; i<numIngredientes(); i++) {
             receta.append(getIngredientes()[i]).append("\n");

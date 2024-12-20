@@ -2,10 +2,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * La clase PlanificadorSemanal tiene un solo atributo privado:
+ * - contenidoPlanificador (es una matriz vacía con un tamaño de 7 y 2, respectivamente)
+ */
 public class PlanificadorSemanal {
     private String[][] contenidoPlanificador = new String[7][2];
-    //Usar un Array 2d es francamente innecesario, pero me ayuda a verlo con mayor claridad al escribir el código -E
 
+    /**
+     * Constructor de PlanificadorSemanal, que guarda cada posición del primer array de la matriz como un día de la semana
+     */
     PlanificadorSemanal() {
         // Inicialización del planificador semanal
         contenidoPlanificador[0][0] = "Lunes";
@@ -17,12 +23,21 @@ public class PlanificadorSemanal {
         contenidoPlanificador[6][0] ="Domingo";
     }
 
+    /**
+     * Agrega una comida al planificador
+     * @param dia posición del día de la semana donde se quiere agregar
+     * @param receta receta que se quiere agregar al planificador
+     */
     public void agregarComida(int dia, Receta receta) {
         // Añade una receta a un día de la semana en el planificador semanal
         contenidoPlanificador[dia][1] = receta.getNombre();
         System.out.println("Receta planificada para " + Utilidades.posicionADiaSemana(dia));
     }
 
+    /**
+     * toString() que imprime el planificador semanal formateado
+     * @return devuelve el objeto de la clase StringBuilder
+     */
     @Override
     public String toString() {
 
@@ -103,12 +118,11 @@ public class PlanificadorSemanal {
     }
 
     /**
-     *
+     * Función que guarda el planificador semanal en un arvhivo de texto
      * @param nombreArchivo es el nombre del archivo que vas a generar
      * @throws IOException la excecpción que puede ocurrir al guardar el PLan en el archivo
      */
     public void guardarPlanEnArchivo(String nombreArchivo) throws IOException {
-        // Guarda el planificador semanal en un archivo de texto
         try (PrintWriter salida=new PrintWriter(new FileWriter(nombreArchivo))) {
             for (String[] strings : contenidoPlanificador) {
                 salida.print(strings[0] + ": " + (strings[1] == null ? "---\n" : strings[1]+"\n"));
