@@ -36,9 +36,6 @@ public class LibroDeRecetas {
                 encontradas[posicionDeRecetasEncontradas] = recetas[i];
                 posicionDeRecetasEncontradas++;
             }
-            //El siguiente cacho simplemente cambia la posición de todos los [null] en el array de "encontradas" al final,
-            //para que no haya nulls en el medio del array por si necesitamos buscar la cantidad de matches que tiene o
-            //si ponemos un buscador que pare al encontrar el primer [null], que siga funcionando correctamente. -E
         }
         return encontradas; // @todo MODIFICAR PARA DEVOLVER LAS RECETAS ENCONTRADAS
     }

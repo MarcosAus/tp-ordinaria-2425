@@ -133,7 +133,7 @@ public class Receta {
     }
 
     /**
-     * @return devuelve el numero de instrucciones de una funcion
+     * @return devuelve el número de instrucciones de una funcion
      */
     public int numInstrucciones() {
         int numInstrucciones=0;

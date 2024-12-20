@@ -19,6 +19,7 @@ public class PlanificadorSemanal {
     public void agregarComida(int dia, Receta receta) {
         // Añade una receta a un día de la semana en el planificador semanal
         contenidoPlanificador[dia][1] = receta.getNombre();
+        System.out.println("Receta planificada para " + Utilidades.posicionADiaSemana(dia));
     }
 
     @Override

@@ -192,11 +192,8 @@ public class InterfazUsuario {
             String recetaElegida = Utilidades.leerCadena(scanner, "Introduzca la receta que quiere degustar este día.");
             Receta[] recetas = libroDeRecetas.buscarRecetaPorNombre(recetaElegida);
             if (recetas != null) {
-                System.out.println("Recetas encontradas:");
                 receta = seleccionarReceta(scanner, recetas);
                 planificador.agregarComida(dia, receta);
-                System.out.println("Receta planificada para " + Utilidades.posicionADiaSemana(dia));
-                //
             }
         } catch (InputMismatchException ex) {
             System.out.println("Lo que ha introducido no coincide con los parámetros requeridos. Asegurese de introducir el nombre de una receta la próxima vez.");
