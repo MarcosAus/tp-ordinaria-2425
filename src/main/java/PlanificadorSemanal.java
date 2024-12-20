@@ -1,19 +1,103 @@
 import java.io.IOException;
 
 public class PlanificadorSemanal {
+    private String[][] contenidoPlanificador = new String[7][2];
 
-    public PlanificadorSemanal() {
+    PlanificadorSemanal() {
         // Inicialización del planificador semanal
+        contenidoPlanificador[0][0] = "Lunes";
+        contenidoPlanificador[1][0] ="Martes";
+        contenidoPlanificador[2][0] ="Miércoles";
+        contenidoPlanificador[3][0] ="Jueves";
+        contenidoPlanificador[4][0] = "Viernes";
+        contenidoPlanificador[5][0] ="Sábado";
+        contenidoPlanificador[6][0] ="Domingo";
     }
 
     public void agregarComida(int dia, Receta receta) {
         // Añade una receta a un día de la semana en el planificador semanal
+        contenidoPlanificador[dia][1] = receta.getNombre();
     }
 
     @Override
     public String toString() {
-        // Devuelve una representación en forma de cadena del planificador semanal
-        return null; // @todo MODIFICAR PARA DEVOLVER LA CADENA CORRECTA
+
+        StringBuilder output = new StringBuilder();
+        int totalDePosiciones = 1;
+        int restanteDeJustificado = 0;
+        boolean tieneCosas = false;
+        int maxLongitud = 11;
+        int[] longitudInput = new int[7];
+        int[] longitudDia = new int[7];
+
+        for (int y = 0; y < 7; y++) {
+            longitudDia[y] = contenidoPlanificador[y][0].length();
+            if (contenidoPlanificador[y][1] != null) {
+                longitudInput[y] = contenidoPlanificador[y][1].length();
+                tieneCosas = true;
+                if (longitudInput[y] > maxLongitud) {
+                    maxLongitud = (longitudInput[y]+2);
+                }
+            }
+        }
+
+        totalDePosiciones = 7*maxLongitud;
+
+        for (int u = 0; u < totalDePosiciones; u++) {
+            if (u == (totalDePosiciones-1)) {
+                output.insert(u,"-\n");
+            }else{
+                output.insert(u, "-");
+            }
+        }
+
+        for (int y = 0; y < 7; y++) {
+            output.append(" ").append(contenidoPlanificador[y][0]);
+            for (int w = 0; w < ((maxLongitud - (longitudDia[y] + 1))); w++) {
+                output.append(" ");
+            }
+            if (longitudInput[y] - longitudDia[y] == 1 && y == 6) {
+                output.append("\n");
+            }
+        }
+
+        for (int u = 0; u < totalDePosiciones; u++) {
+            if (u == (totalDePosiciones-1)) {
+                output.append("-\n");
+            }else if (u == 0) {
+                output.append("\n-");
+            } else {
+                output.append("-");
+            }
+        }
+
+        for (int i = 0; i < 7; i++) {
+            if (contenidoPlanificador[i][1] != null) {
+                output.append(" ").append(contenidoPlanificador[i][1]);
+            } else{
+                output.append(" ");
+            }
+            for (int k = 0; k < (maxLongitud - (longitudInput[i] + 1)); k++) {
+                output.append(" ");
+                if (longitudInput[i] - longitudDia[i] == 1 && i == 6) {
+                    output.append("\n");
+                }
+            }
+        }
+
+        for (int u = 0; u < totalDePosiciones; u++) {
+            if (u == (totalDePosiciones-1)) {
+                output.append("-\n");
+            }else if (u == 0) {
+                output.append("\n-");
+            } else {
+                output.append("-");
+            }
+        }
+
+        output.append("\n");
+
+        return String.valueOf(output); // @todo MODIFICAR PARA DEVOLVER LA CADENA CORRECTA
     }
 
     public void guardarPlanEnArchivo(String nombreArchivo) throws IOException {
