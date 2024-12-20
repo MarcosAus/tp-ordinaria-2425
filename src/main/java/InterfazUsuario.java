@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
@@ -234,5 +231,13 @@ public class InterfazUsuario {
 
     private void guardarPlanSemanal(Scanner scanner) {
         // Solicita al usuario un nombre de archivo y guarda el plan semanal en ese archivo
+        scanner.nextLine();
+        String nombreArchivo=Utilidades.leerCadena(scanner, "Introduce el nombre del archivo donde guardar el plan semanal: ");
+        try (PrintWriter salida = new PrintWriter(new FileWriter(nombreArchivo))) {
+            salida.print(planificador.toString());
+            System.out.print("Plan semanal guardado en" + nombreArchivo);
+        } catch (IOException ex) {
+            System.out.println("Error al guardar el archivo.");
+        }
     }
 }

@@ -2,6 +2,11 @@ import java.io.*;
 import java.nio.Buffer;
 import java.util.Arrays;
 
+/**
+ La clase LibroDeRecetas tiene dos atributos privados:
+ - maxRecetasEnLibro (el número máximo de recetas que puede haber en el libro de recetas)
+ - recetas (un array de Recetas)
+ */
 public class LibroDeRecetas {
     private int maxRecetasEnLibro;
     private Receta[] recetas;
