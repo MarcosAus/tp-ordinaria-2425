@@ -99,6 +99,11 @@ public class PlanificadorSemanal {
         return String.valueOf(output);
     }
 
+    /**
+     *
+     * @param nombreArchivo es el nombre del archivo que vas a generar
+     * @throws IOException la excecpción que puede ocurrir al guardar el PLan en el archivo
+     */
     public void guardarPlanEnArchivo(String nombreArchivo) throws IOException {
         // Guarda el planificador semanal en un archivo de texto
         try (PrintWriter salida=new PrintWriter(new FileWriter(nombreArchivo))) {
