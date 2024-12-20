@@ -53,7 +53,6 @@ public class InterfazUsuario {
                         
                         >> Elige una opción: >>""");
 
-        try {
             int inputUser = Utilidades.leerNumero(scanner, "", 1, 7);
             switch (inputUser){
                 case 1 -> agregarReceta(scanner);
@@ -65,11 +64,7 @@ public class InterfazUsuario {
                 case 7 -> {}
                 default -> System.out.println("Has encontrado un error");
             }
-        } catch (InputMismatchException ex){
-            System.out.println("Error. Por favor introduzca un número.");
-            menuPrincipal(scanner);
 
-        }
         // Muestra el menú principal y gestiona la entrada del usuario para dirigirlo a la opción seleccionada
     }
 
@@ -130,6 +125,7 @@ public class InterfazUsuario {
             recetas = libroDeRecetas.buscarRecetaPorNombre(texto);
             //if (recetas.length == 0 || recetas[0] == null) {
             //    System.out.println("No hay recetas que coincidan con el texto introducido. Por favor inténtelo de nuevo.");
+            //    libroDeRecetas.buscarRecetaPorNombre(texto);
             //}
             //^ A añadir una vez el resto del programa esté listo y se compruebe que no rompe ningún test -E
         }
@@ -183,6 +179,20 @@ public class InterfazUsuario {
 
     private void planificarComidas(Scanner scanner) {
         // Inicia el proceso de planificación de comidas
+        Receta receta;
+        try {
+            int dia = Utilidades.leerNumero(scanner, "Introduzca el valor numérico del día de la semana al que desea agregar la receta.", 0, 6);
+            String recetaElegida = Utilidades.leerCadena(scanner, "Introduzca la receta que quiere degustar este día.");
+            libroDeRecetas.buscarRecetaPorNombre(recetaElegida);
+            if (recetas.length == 1) {
+                receta = recetas[0];
+            } else {
+                receta = seleccionarReceta(scanner, recetas);
+            }
+            planificador.agregarComida(dia, receta);
+        } catch (InputMismatchException ex) {
+            System.out.println("Lo que ha introducido no coincide con los parámetros requeridos. Asegurese de introducir el nombre de una receta la próxima vez.");
+        }
     }
 
     private void guardarRecetas(Scanner scanner) {
