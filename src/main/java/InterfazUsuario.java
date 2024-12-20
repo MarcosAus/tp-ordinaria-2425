@@ -200,6 +200,7 @@ public class InterfazUsuario {
                 receta = seleccionarReceta(scanner, recetas);
             }
             planificador.agregarComida(dia, receta);
+            System.out.println("Planificación de comidas para la semana:" + planificador.toString());
         } catch (InputMismatchException ex) {
             System.out.println("Lo que ha introducido no coincide con los parámetros requeridos. Asegurese de introducir el nombre de una receta la próxima vez.");
         }
