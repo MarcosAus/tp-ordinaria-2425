@@ -189,7 +189,20 @@ public class InterfazUsuario {
 
     private void planificarComidas(Scanner scanner) {
         // Inicia el proceso de planificación de comidas
-
+        Receta receta;
+        try {
+            int dia = Utilidades.leerNumero(scanner, "Introduzca el valor numérico del día de la semana al que desea agregar la receta.", 0, 6);
+            String recetaElegida = Utilidades.leerCadena(scanner, "Introduzca la receta que quiere degustar este día.");
+            libroDeRecetas.buscarRecetaPorNombre(recetaElegida);
+            if (recetas.length == 1) {
+                receta = recetas[0];
+            } else {
+                receta = seleccionarReceta(scanner, recetas);
+            }
+            planificador.agregarComida(dia, receta);
+        } catch (InputMismatchException ex) {
+            System.out.println("Lo que ha introducido no coincide con los parámetros requeridos. Asegurese de introducir el nombre de una receta la próxima vez.");
+        }
     }
 
     private void guardarRecetas(Scanner scanner) {
