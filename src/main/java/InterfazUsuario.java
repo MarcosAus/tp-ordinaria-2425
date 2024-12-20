@@ -186,24 +186,20 @@ public class InterfazUsuario {
     private void planificarComidas(Scanner scanner) {
         // Inicia el proceso de planificación de comidas
         Receta receta;
-        int N = -1;
         try {
             System.out.println("Planificación de comidas para la semana:");
             int dia = Utilidades.diaSemanaAPosicion(Utilidades.leerCadena(scanner, "Introduce el día de la semana (L, M, X, J, V, S, D): "));
-            N = dia;
+            dia = Utilidades.diaSemanaAPosicion(Utilidades.leerCadena(scanner, "Introduce el día de la semana (L, M, X, J, V, S, D): "));
             String recetaElegida = Utilidades.leerCadena(scanner, "Introduzca la receta que quiere degustar este día.");
             Receta[] recetas = libroDeRecetas.buscarRecetaPorNombre(recetaElegida);
             if (recetas != null) {
                 receta = seleccionarReceta(scanner, recetas);
                 planificador.agregarComida(dia, receta);
+                System.out.println("Receta planificada para "+Utilidades.posicionADiaSemana(dia));
             }
         } catch (InputMismatchException ex) {
             System.out.println("Lo que ha introducido no coincide con los parámetros requeridos. Asegurese de introducir el nombre de una receta la próxima vez.");
         }
-        if (recetas != null) {
-            System.out.println("Receta planificada para " + Utilidades.posicionADiaSemana(N));
-        }
-
     }
 
     private void guardarRecetas(Scanner scanner) {
@@ -240,7 +236,7 @@ public class InterfazUsuario {
         String nombreArchivo=Utilidades.leerCadena(scanner, "Introduce el nombre del archivo donde guardar el plan semanal: ");
         try (PrintWriter salida = new PrintWriter(new FileWriter(nombreArchivo))) {
             salida.print(planificador.toString());
-            System.out.print("Plan semanal guardado en" + nombreArchivo);
+            System.out.print("Plan semanal guardado en " + nombreArchivo);
         } catch (IOException ex) {
             System.out.println("Error al guardar el archivo.");
         }

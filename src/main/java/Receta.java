@@ -1,8 +1,10 @@
 /**
- * La clase receta tiene cinco atributos: nombre (el nombre de la receta) , listaIngredientes
- * (la lista de ingredientes de la receta), listaInstrucciones (muestra la lista de instrucciones
- * para realizar la receta), maxIngredientes es el número maximo de ingredientes y maxInstrucciones
- * que es el maximo de instrucciones de la receta.
+ * La clase receta tiene cinco atributos:
+ *-nombre (el nombre de la receta)
+ *-listaIngredientes (la lista de ingredientes de la receta)
+ *-istaInstrucciones (muestra la lista de instrucciones para realizar la receta)
+ *-maxIngredientes (el número máximo de ingredientes)
+ *-maxInstrucciones (el máximo de instrucciones de la receta)
  */
 public class Receta {
     private String nombre;
