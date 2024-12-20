@@ -1,4 +1,6 @@
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class PlanificadorSemanal {
     private String[][] contenidoPlanificador = new String[7][2];
@@ -23,9 +25,7 @@ public class PlanificadorSemanal {
     public String toString() {
 
         StringBuilder output = new StringBuilder();
-        int totalDePosiciones = 1;
-        int restanteDeJustificado = 0;
-        boolean tieneCosas = false;
+        int totalDePosiciones;
         int maxLongitud = 11;
         int[] longitudInput = new int[7];
         int[] longitudDia = new int[7];
@@ -34,7 +34,6 @@ public class PlanificadorSemanal {
             longitudDia[y] = contenidoPlanificador[y][0].length();
             if (contenidoPlanificador[y][1] != null) {
                 longitudInput[y] = contenidoPlanificador[y][1].length();
-                tieneCosas = true;
                 if (longitudInput[y] > maxLongitud) {
                     maxLongitud = (longitudInput[y]+2);
                 }
@@ -97,10 +96,15 @@ public class PlanificadorSemanal {
 
         output.append("\n");
 
-        return String.valueOf(output); // @todo MODIFICAR PARA DEVOLVER LA CADENA CORRECTA
+        return String.valueOf(output);
     }
 
     public void guardarPlanEnArchivo(String nombreArchivo) throws IOException {
         // Guarda el planificador semanal en un archivo de texto
+        try (PrintWriter salida=new PrintWriter(new FileWriter(nombreArchivo))) {
+            for (String[] strings : contenidoPlanificador) {
+                salida.print(strings[0] + ": " + (strings[1] == null ? "---\n" : strings[1]+"\n"));
+            }
+        }
     }
 }
