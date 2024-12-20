@@ -55,23 +55,22 @@ public class InterfazUsuario {
 
         try {
             int inputUser = Utilidades.leerNumero(scanner, "", 1, 7);
-            switch (inputUser){
+            switch (inputUser) {
                 case 1 -> agregarReceta(scanner);
                 case 2 -> consultarReceta(scanner);
                 case 3 -> planificarComidas(scanner);
                 case 4 -> guardarRecetas(scanner);
                 case 5 -> cargarRecetas(scanner);
                 case 6 -> guardarPlanSemanal(scanner);
-                case 7 -> {}
+                case 7 -> {
+                }
                 default -> System.out.println("Has encontrado un error");
             }
-        } catch (InputMismatchException ex){
-            System.out.println("Error. Por favor introduzca un número.");
-            menuPrincipal(scanner);
-
+        }catch(InputMismatchException ex) {
+            System.out.println("Entrada no válida");
         }
         // Muestra el menú principal y gestiona la entrada del usuario para dirigirlo a la opción seleccionada
-    }
+        }
 
 
     private void agregarReceta(Scanner scanner) {
@@ -113,7 +112,10 @@ public class InterfazUsuario {
     private void consultarReceta(Scanner scanner) {
         // Busca una receta por su nombre y activa el menú de edición
          Receta seleccionada = buscarRecetaPorNombre(scanner);
-        System.out.println(seleccionada.toString());
+         if (seleccionada==null) {
+             return;
+         }
+        System.out.println(seleccionada);
         System.out.println();
         editarReceta(scanner, seleccionada);
         menuPrincipal(scanner);
@@ -125,13 +127,15 @@ public class InterfazUsuario {
         System.out.println("Introduce el texto de la receta a buscar (-FIN- para volver): ");
         if (scanner.nextLine().equals("-FIN-")) {
             menuPrincipal(scanner);
+            return null;
         } else {
             String texto = scanner.nextLine();
             recetas = libroDeRecetas.buscarRecetaPorNombre(texto);
-            // hay que modificar esta parte para que contemple qué pasa cuando no hay recetas econtradas -M
+            // hzzay que modificar esta parte para que contemple qué pasa cuando no hay recetas econtradas -M
             if (recetas.length == 0 || recetas[0] == null) {
                 System.out.println("No hay recetas que coincidan con el texto introducido. Por favor inténtelo de nuevo.");
                 menuPrincipal(scanner);
+                return null;
             }
             //^ A añadir una vez el resto del programa esté listo y se compruebe que no rompe ningún test -E
         }
